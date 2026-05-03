@@ -6,7 +6,7 @@
  */
 
 function populateHeaders() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = getSpreadsheet();
   var tabs = {
     'Polls': ['Timestamp', 'ModuleId', 'UserId', 'UserName', 'UserEmail', 'TediousTask'],
     'Projects': ['Timestamp', 'ModuleId', 'UserId', 'UserName', 'UserEmail', 'Audience', 'Title', 'Description', 'Members', 'DriveFileId', 'FileName'],
@@ -42,7 +42,7 @@ function clearAllResponses() {
   );
   if (resp !== ui.Button.YES) return;
 
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = getSpreadsheet();
   ['Polls', 'Projects', 'Feedback', 'Wishlist'].forEach(function (name) {
     var sheet = ss.getSheetByName(name);
     if (!sheet) return;
@@ -58,7 +58,7 @@ function clearAllResponses() {
  * frontend expects ('vvusd-data-studio-2026').
  */
 function seedDemoSubmission() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = getSpreadsheet();
   var sheet = ss.getSheetByName('Projects');
   if (!sheet) {
     Logger.log('Projects tab missing — run populateHeaders first.');

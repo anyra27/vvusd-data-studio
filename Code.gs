@@ -36,6 +36,22 @@
 // EDIT BEFORE DEPLOYING
 const DRIVE_FOLDER_ID = 'YOUR_DRIVE_FOLDER_ID_HERE';
 
+// Optional: if this is a STANDALONE Apps Script (not bound to a Sheet), paste
+// the Sheet ID here. Leave as the placeholder if the script is bound to a
+// Sheet via Extensions → Apps Script.
+const SHEET_ID = 'YOUR_SHEET_ID_HERE';
+
+function getSpreadsheet() {
+  if (SHEET_ID && SHEET_ID !== 'YOUR_SHEET_ID_HERE') {
+    return SpreadsheetApp.openById(SHEET_ID);
+  }
+  var bound = SpreadsheetApp.getActiveSpreadsheet();
+  if (!bound) {
+    throw new Error('No spreadsheet found. Either bind this script to a Google Sheet, or set SHEET_ID at the top of Code.gs.');
+  }
+  return bound;
+}
+
 const SHEET_TABS = {
   poll: 'Polls',
   project: 'Projects',
@@ -267,7 +283,7 @@ function getSubmissions(type, moduleId) {
 // =========================================================================
 
 function getOrCreateTab(tabName, type) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = getSpreadsheet();
   var sheet = ss.getSheetByName(tabName);
   if (!sheet) {
     sheet = ss.insertSheet(tabName);
