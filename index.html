@@ -106,42 +106,6 @@
             line-height: 1.45;
         }
 
-        /* Compact arc rail — chip-style */
-        .arc-rail {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-        }
-        .arc-chip {
-            display: inline-flex;
-            align-items: baseline;
-            gap: 8px;
-            padding: 8px 13px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-subtle, rgba(255,255,255,0.06));
-            border-radius: 9999px;
-            font-size: 0.82rem;
-            color: var(--text-secondary, rgba(255,255,255,0.7));
-        }
-        .arc-chip.is-current {
-            border-color: color-mix(in srgb, var(--scene-color) 45%, transparent);
-            background: color-mix(in srgb, var(--scene-color) 10%, transparent);
-            color: var(--text-primary, #fff);
-        }
-        .arc-chip-num {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.66rem;
-            color: var(--scene-color);
-            font-weight: 500;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-        }
-        .arc-chip-time {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted, rgba(255,255,255,0.4));
-        }
     </style>
 </head>
 <body class="scene-page" style="--scene-color: #2dd4bf;">
@@ -158,13 +122,8 @@
             <span class="logo-subtitle">Data Studio · Workshop</span>
         </a>
         <div class="scene-progress">
-            <div class="scene-progress-track"><div class="scene-progress-fill" style="width: 20%"></div></div>
-            <span class="scene-progress-label">01 / 05</span>
-        </div>
-        <div class="scene-header-actions">
-            <a href="gallery.html" class="scene-icon-btn" title="Open the live gallery">
-                <i data-lucide="grid-3x3" style="width: 16px; height: 16px;"></i>
-            </a>
+            <div class="scene-progress-track"><div class="scene-progress-fill" style="width: 50%"></div></div>
+            <span class="scene-progress-label">01 / 02</span>
         </div>
     </header>
 
@@ -213,15 +172,6 @@
                     Three students hovering at the 70% line — pull them on Wednesday during the warm-up.
                 </div>
             </div>
-        </div>
-
-        <p class="section-eyebrow">The arc · five scenes, fifty minutes</p>
-        <div class="arc-rail">
-            <span class="arc-chip is-current"><span class="arc-chip-num">01</span><span>Hook + Frame</span><span class="arc-chip-time">~3</span></span>
-            <span class="arc-chip"><span class="arc-chip-num">02</span><span>Get Your Kit</span><span class="arc-chip-time">~7</span></span>
-            <span class="arc-chip"><span class="arc-chip-num">03</span><span>Sample Run</span><span class="arc-chip-time">~10</span></span>
-            <span class="arc-chip"><span class="arc-chip-num">04</span><span>Real Data + Audience</span><span class="arc-chip-time">~15</span></span>
-            <span class="arc-chip"><span class="arc-chip-num">05</span><span>Submit + Gallery</span><span class="arc-chip-time">~15</span></span>
         </div>
 
         <nav class="scene-footer-nav" style="margin-top: 32px; padding-top: 20px;">
