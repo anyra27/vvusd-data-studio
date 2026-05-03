@@ -30,7 +30,7 @@ vvusd-data-studio/
 └── kit/
     ├── gem-instructions.md         Paste into Gemini Gem · Instructions field (prose only, ~123 lines)
     ├── TEACHER.md                  Static template (rarely used directly — Scene 02 builds a personalized version from a form)
-    ├── ui-library.md               Drag into Gemini Gem · Knowledge files (CSS lives inside)
+    ├── ui-library-complete.html    Drag into Gemini Gem · Knowledge files (live demo + inline CSS the Gem copies into every dashboard)
     └── sample-classroom-data.csv   Practice CSV (intentionally messy)
 ```
 
