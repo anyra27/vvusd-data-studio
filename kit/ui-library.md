@@ -1,17 +1,25 @@
-/* ============================================================
-   VVUSD UI Library — Single bundled stylesheet
-   ============================================================
-   Source: ui-library-complete.html (canonical reference page)
-   Extract this file alongside your saved dashboard HTML so the
-   .ui-* classes render with the right visual treatment.
-   
-   Usage: <link rel="stylesheet" href="ui-library.css">
-   
-   217 .ui-* classes covering: cards, KPIs, charts (Chart.js),
-   tables, leaderboards, badges, progress bars, heatmaps, forms,
-   buttons, navigation, layouts. Inter typography, glass morphism.
-   ============================================================ */
+# VVUSD UI Library
 
+This is the complete VVUSD UI Library that the Classroom Data Analyzer Gem uses to build dashboards. Drag this file into your Gem's Knowledge files alongside `TEACHER.md`.
+
+When the Gem builds a dashboard, it copies the CSS below verbatim into the dashboard's `<style>` block so the styles are inlined and the file opens correctly from your desktop without any sidecar files.
+
+## Available components
+
+- **Cards & containers** — `.ui-glass-card`, `.ui-kpi-card`, `.ui-chart-container`, `.ui-leaderboard`
+- **KPI display** — `.ui-kpi-grid` (with `--4`, `--6` variants), `.ui-kpi-value`, `.ui-kpi-title`, `.ui-kpi-subtitle`
+- **Charts** — `.ui-chart-canvas`, `.ui-donut-container` (Chart.js v4.4.1)
+- **Tables** — `.ui-table`, `.ui-table-container`
+- **Leaderboards** — `.ui-leaderboard-list`, `.ui-rank-badge` (with `--gold`, `--silver`, `--bronze`)
+- **Badges** — `.ui-badge--{primary|secondary|accent|warning|danger}-soft`, `.ui-status-badge`, `.ui-category-badge`, `.ui-rank-badge`
+- **Progress** — `.ui-progress-bar`, `.ui-completion-bar`, `.ui-progress-fill`
+- **Forms** — `.ui-input`, `.ui-textarea`, `.ui-select`, `.ui-btn` (full button system)
+- **Layout** — `.ui-grid-2`, `.ui-grid-3`, `.ui-grid-4`, `.ui-flex` utilities
+- **Page glue** (allowed alongside `.ui-*`) — `.page-wrap`, `.page-header`, `.dashboard-grid`, `.audience-callout`
+
+## CSS — copy this block verbatim into your dashboard's <style>
+
+```css
 /* ============================================================
    VVUSD UI LIBRARY — INLINED STYLESHEETS
    ============================================================ */
@@ -774,3 +782,10 @@ button { cursor: pointer; border: none; background: none; }
     letter-spacing: 0.05em;
     margin-bottom: 0.5rem;
 }
+```
+
+## Reminders
+
+- Inline the CSS into the dashboard. Don't `<link>` external files — teachers open dashboards locally.
+- Use **only** `.ui-*` class names from this library + the four page-glue helpers above. Don't invent new class names.
+- Inter (Google Font) and Chart.js v4.4.1 should always be loaded via CDN at the top of every dashboard.

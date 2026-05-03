@@ -14,23 +14,22 @@
     <link rel="stylesheet" href="css/scene-page.css">
 
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.294.0/dist/umd/lucide.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
     <style>
         .hook-grid {
             display: grid;
             grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-            gap: 56px;
+            gap: 48px;
             align-items: center;
-            margin-bottom: 80px;
+            margin-bottom: 36px;
         }
-        @media (max-width: 980px) { .hook-grid { grid-template-columns: 1fr; gap: 32px; } }
+        @media (max-width: 980px) { .hook-grid { grid-template-columns: 1fr; gap: 28px; margin-bottom: 28px; } }
 
         .hook-tease {
             background: linear-gradient(135deg, rgba(45, 212, 191, 0.05) 0%, rgba(96, 165, 250, 0.04) 100%);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 18px;
-            padding: 28px 30px;
+            border-radius: 16px;
+            padding: 22px 24px;
             backdrop-filter: blur(12px);
             position: relative;
             overflow: hidden;
@@ -55,26 +54,26 @@
         .hook-tease-kpi-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 18px;
+            gap: 10px;
+            margin-bottom: 14px;
         }
         .hook-kpi {
             background: rgba(0,0,0,0.35);
             border: 1px solid rgba(255,255,255,0.07);
-            border-radius: 12px;
-            padding: 14px 16px;
+            border-radius: 10px;
+            padding: 11px 14px;
         }
         .hook-kpi-label {
-            font-size: 0.7rem;
+            font-size: 0.66rem;
             color: var(--text-muted, rgba(255,255,255,0.4));
             text-transform: uppercase;
             letter-spacing: 0.12em;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             font-family: 'JetBrains Mono', monospace;
         }
         .hook-kpi-value {
             font-family: 'Space Grotesk', 'Montserrat', sans-serif;
-            font-size: 1.85rem;
+            font-size: 1.55rem;
             font-weight: 600;
             line-height: 1.05;
             background: linear-gradient(135deg, #2dd4bf, #60a5fa);
@@ -94,115 +93,53 @@
             color: var(--text-muted, rgba(255,255,255,0.4));
         }
 
-        .hook-tease-chart {
-            margin-top: 14px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 14px 16px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .hook-tease-chart-label {
-            font-size: 0.7rem;
-            color: var(--text-muted, rgba(255,255,255,0.4));
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            margin-bottom: 8px;
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .hook-tease-chart-canvas { width: 100%; height: 110px; }
-
         .hook-tease-callout {
-            margin-top: 18px;
-            padding: 12px 16px;
+            margin-top: 12px;
+            padding: 10px 14px;
             background: linear-gradient(135deg, rgba(45,212,191,0.08), rgba(96,165,250,0.06));
             border-left: 3px solid var(--scene-color);
             border-radius: 6px;
             font-style: italic;
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.92rem;
+            font-size: 0.88rem;
             color: var(--text-secondary, rgba(255,255,255,0.7));
-            line-height: 1.5;
+            line-height: 1.45;
         }
 
-        .what-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-            margin-bottom: 64px;
-        }
-        @media (max-width: 880px) { .what-grid { grid-template-columns: 1fr; } }
-
-        .what-card {
-            background: var(--bg-card, rgba(10,15,20,0.95));
-            border: 1px solid var(--border-default, rgba(255,255,255,0.1));
-            border-radius: 14px;
-            padding: 24px;
-            transition: border-color 0.3s ease, transform 0.3s ease;
-        }
-        .what-card:hover {
-            border-color: rgba(45,212,191,0.35);
-            transform: translateY(-2px);
-        }
-        .what-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: rgba(45,212,191,0.12);
-            color: var(--scene-color);
-            margin-bottom: 14px;
-        }
-        .what-title {
-            font-family: var(--font-display, 'Montserrat', sans-serif);
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--text-primary, #fff);
-            margin-bottom: 8px;
-        }
-        .what-body {
-            font-size: 0.92rem;
-            color: var(--text-secondary, rgba(255,255,255,0.7));
-            line-height: 1.55;
-        }
-
+        /* Compact arc rail — chip-style */
         .arc-rail {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 14px;
-            margin-bottom: 16px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
         }
-        @media (max-width: 880px) { .arc-rail { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 540px) { .arc-rail { grid-template-columns: 1fr; } }
-
-        .arc-step {
-            background: var(--bg-card, rgba(10,15,20,0.6));
-            border: 1px solid var(--border-default, rgba(255,255,255,0.08));
-            border-radius: 12px;
-            padding: 18px 18px 22px;
+        .arc-chip {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 8px;
+            padding: 8px 13px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-subtle, rgba(255,255,255,0.06));
+            border-radius: 9999px;
+            font-size: 0.82rem;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
         }
-        .arc-step-num {
+        .arc-chip.is-current {
+            border-color: color-mix(in srgb, var(--scene-color) 45%, transparent);
+            background: color-mix(in srgb, var(--scene-color) 10%, transparent);
+            color: var(--text-primary, #fff);
+        }
+        .arc-chip-num {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.66rem;
-            font-weight: 500;
-            letter-spacing: 0.16em;
             color: var(--scene-color);
+            font-weight: 500;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            display: block;
-            margin-bottom: 8px;
         }
-        .arc-step-title {
-            font-family: var(--font-display, 'Montserrat', sans-serif);
-            font-weight: 600;
-            font-size: 0.98rem;
-            color: var(--text-primary, #fff);
-            margin-bottom: 6px;
-            letter-spacing: -0.01em;
-        }
-        .arc-step-time {
+        .arc-chip-time {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             color: var(--text-muted, rgba(255,255,255,0.4));
         }
     </style>
@@ -231,8 +168,8 @@
         </div>
     </header>
 
-    <main class="scene-wrap">
-        <div class="scene-eyebrow-row">
+    <main class="scene-wrap" style="padding-top: 96px; padding-bottom: 64px;">
+        <div class="scene-eyebrow-row" style="margin-bottom: 16px;">
             <span class="scene-eyebrow-pill">Scene 01</span>
             <span class="scene-eyebrow-label">Hook + Frame</span>
             <span class="scene-eyebrow-time">~3 min</span>
@@ -272,47 +209,22 @@
                         <div class="hook-kpi-sub">closer than Q1</div>
                     </div>
                 </div>
-                <div class="hook-tease-chart">
-                    <div class="hook-tease-chart-label">Score Distribution · Lab 03</div>
-                    <canvas id="hook-chart" class="hook-tease-chart-canvas"></canvas>
-                </div>
                 <div class="hook-tease-callout">
                     Three students hovering at the 70% line — pull them on Wednesday during the warm-up.
                 </div>
             </div>
         </div>
 
-        <p class="section-eyebrow">What you'll leave with</p>
-        <h2 class="section-title">Three deliverables, one workflow.</h2>
-        <div class="what-grid">
-            <div class="what-card">
-                <div class="what-icon"><i data-lucide="sparkles" style="width: 22px; height: 22px;"></i></div>
-                <h3 class="what-title">A Custom Gem you keep</h3>
-                <p class="what-body">It knows your grade band, subject, class size, and audience defaults. Lives in your Gemini workspace forever.</p>
-            </div>
-            <div class="what-card">
-                <div class="what-icon"><i data-lucide="bar-chart-3" style="width: 22px; height: 22px;"></i></div>
-                <h3 class="what-title">A dashboard from real data</h3>
-                <p class="what-body">An HTML one-pager you can project, screenshot, send. Built from your actual Google Classroom CSV — not a sample.</p>
-            </div>
-            <div class="what-card">
-                <div class="what-icon"><i data-lucide="repeat" style="width: 22px; height: 22px;"></i></div>
-                <h3 class="what-title">A 90-second workflow</h3>
-                <p class="what-body">Sunday afternoon: paste a CSV, chat with your Gem, save the HTML. Walk into Wednesday's PLC with the right thing.</p>
-            </div>
-        </div>
-
-        <p class="section-eyebrow">The arc</p>
-        <h2 class="section-title">Five scenes, fifty minutes.</h2>
+        <p class="section-eyebrow">The arc · five scenes, fifty minutes</p>
         <div class="arc-rail">
-            <div class="arc-step"><span class="arc-step-num">Scene 01</span><div class="arc-step-title">Hook + Frame</div><span class="arc-step-time">~3 min</span></div>
-            <div class="arc-step"><span class="arc-step-num">Scene 02</span><div class="arc-step-title">Get Your Kit</div><span class="arc-step-time">~7 min</span></div>
-            <div class="arc-step"><span class="arc-step-num">Scene 03</span><div class="arc-step-title">Sample Run</div><span class="arc-step-time">~10 min</span></div>
-            <div class="arc-step"><span class="arc-step-num">Scene 04</span><div class="arc-step-title">Real Data + Audience</div><span class="arc-step-time">~15 min</span></div>
-            <div class="arc-step"><span class="arc-step-num">Scene 05</span><div class="arc-step-title">Submit + Gallery</div><span class="arc-step-time">~15 min</span></div>
+            <span class="arc-chip is-current"><span class="arc-chip-num">01</span><span>Hook + Frame</span><span class="arc-chip-time">~3</span></span>
+            <span class="arc-chip"><span class="arc-chip-num">02</span><span>Get Your Kit</span><span class="arc-chip-time">~7</span></span>
+            <span class="arc-chip"><span class="arc-chip-num">03</span><span>Sample Run</span><span class="arc-chip-time">~10</span></span>
+            <span class="arc-chip"><span class="arc-chip-num">04</span><span>Real Data + Audience</span><span class="arc-chip-time">~15</span></span>
+            <span class="arc-chip"><span class="arc-chip-num">05</span><span>Submit + Gallery</span><span class="arc-chip-time">~15</span></span>
         </div>
 
-        <nav class="scene-footer-nav">
+        <nav class="scene-footer-nav" style="margin-top: 32px; padding-top: 20px;">
             <span class="scene-footer-meta">VVUSD AI Task Force · Data Studio</span>
             <a href="scene-2-kit.html" class="btn-scene btn-scene--primary">
                 <span>Get your kit</span>
@@ -324,32 +236,6 @@
     <script>
         (function () {
             document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
-        })();
-
-        (function renderHookChart() {
-            const el = document.getElementById('hook-chart');
-            if (!el || !window.Chart) return;
-            const ctx = el.getContext('2d');
-            const grad = ctx.createLinearGradient(0, 0, 0, 110);
-            grad.addColorStop(0, 'rgba(45, 212, 191, 0.85)');
-            grad.addColorStop(1, 'rgba(96, 165, 250, 0.45)');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['50–59', '60–69', '70–79', '80–89', '90–99', '100'],
-                    datasets: [{ data: [1, 3, 6, 9, 7, 2], backgroundColor: grad, borderRadius: 4, borderSkipped: false }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    animation: { duration: 1200 },
-                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
-                    scales: {
-                        x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.45)', font: { size: 9, family: 'JetBrains Mono' } } },
-                        y: { display: false, beginAtZero: true }
-                    }
-                }
-            });
         })();
 
         if (window.lucide) lucide.createIcons();

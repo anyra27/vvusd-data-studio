@@ -28,11 +28,10 @@ vvusd-data-studio/
 │   ├── lazy-video.js
 │   └── lucide.min.js
 └── kit/
-    ├── gem-instructions.md         Paste into Gemini Gem · Instructions
-    ├── TEACHER.md                  Drag into Gemini Gem · Knowledge
-    ├── sample-classroom-data.csv   Practice CSV (intentionally messy)
-    ├── ui-library-complete.html    Live demo of every .ui-* class
-    └── ui-library.css              Single bundled stylesheet (sits next to your dashboard HTML)
+    ├── gem-instructions.md         Paste into Gemini Gem · Instructions field (prose only, ~123 lines)
+    ├── TEACHER.md                  Static template (rarely used directly — Scene 02 builds a personalized version from a form)
+    ├── ui-library.md               Drag into Gemini Gem · Knowledge files (CSS lives inside)
+    └── sample-classroom-data.csv   Practice CSV (intentionally messy)
 ```
 
 ---
@@ -42,7 +41,7 @@ vvusd-data-studio/
 | Scene | Time | What happens |
 |------|------|------|
 | 01. Hook + Frame | 3 min | Editorial pitch + live mini-dashboard tease. "By the end of the hour, one of these from your real gradebook." |
-| 02. Get Your Kit | 7 min | 5-row no-zip checklist. Each asset has a copy/download/open button + "where it goes in Gemini" sublabel. Build your Custom Gem. |
+| 02. Get Your Kit | 7 min | 4-row no-zip checklist: copy Gem Instructions, build personalized TEACHER.md from the inline form, download UI Library Knowledge file, download sample CSV. Each row labeled with where it goes in Gemini's Gem builder. |
 | 03. Sample Run | 10 min | Drop the sample CSV into your Gem. Side-by-side: messy data on the left (red highlights), reference dashboard on the right. Watch Phase 1 cleanup happen, say `go`, see the build. |
 | 04. Real Data + Audience | 15 min | Pick an audience (PLC / Self / Parents / Students), drop your real Google Classroom CSV, build your dashboard, upload it. Then a free-response: "where else could AI help VVUSD next year?" |
 | 05. Gallery walk | 12 min | Live gallery on the room screen. Dashboards organized by audience, with rendered iframe previews. Voices-from-the-room panel below shows the free-response notes. |
