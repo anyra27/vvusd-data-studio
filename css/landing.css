@@ -1,0 +1,748 @@
+/* ============================================
+   LANDING PAGE STYLES
+   Interactive welcome screen with particles
+   ============================================ */
+
+/* Welcome screen overrides */
+#screen-welcome {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
+}
+
+#screen-welcome.active {
+    display: block;
+}
+
+/* Shiny button gradient animation */
+@property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+/* Interactive Background Container */
+.landing-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Grid pattern overlay */
+.landing-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+
+/* Mouse-following gradient orbs */
+.landing-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    transition: transform 0.3s ease-out;
+}
+
+.landing-orb--purple {
+    width: 1000px;
+    height: 1000px;
+    background: radial-gradient(circle, var(--purple-400) 0%, rgba(168, 85, 247, 0.2) 30%, transparent 60%);
+    opacity: 0.35;
+}
+
+.landing-orb--blue {
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(circle, var(--blue-400) 0%, rgba(59, 130, 246, 0.2) 30%, transparent 60%);
+    opacity: 0.4;
+}
+
+.landing-orb--teal {
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, var(--teal-400) 0%, rgba(20, 184, 166, 0.2) 30%, transparent 60%);
+    opacity: 0.25;
+}
+
+/* Particle canvas container */
+.landing-particles {
+    position: absolute;
+    inset: 0;
+}
+
+.landing-particles canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Cursor glow effect */
+.landing-cursor-glow {
+    position: fixed;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    display: none;
+}
+
+.landing-cursor-glow.active {
+    display: block;
+}
+
+/* Landing content container */
+.landing-content {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    padding-bottom: 8vh; /* Push content up from center */
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.landing-inner {
+    max-width: 1200px;
+    width: 90%;
+}
+
+/* Badge */
+.landing-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.landing-badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--teal-400);
+    border-radius: 50%;
+    animation: landing-pulse 2s infinite;
+}
+
+@keyframes landing-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+/* Headline */
+.landing-headline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+}
+
+/* Animated gradient text */
+.landing-gradient-text {
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #e0fdfa 20%,
+        #99f6e4 40%,
+        #c4b5fd 60%,
+        #e9d5ff 80%,
+        #ffffff 100%
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3)) drop-shadow(0 0 60px rgba(192, 132, 252, 0.25));
+    animation: landing-gradient-shift 10s ease-in-out infinite;
+}
+
+@keyframes landing-gradient-shift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Byline */
+.landing-byline {
+    display: block;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    letter-spacing: 0;
+}
+
+.landing-byline-by {
+    font-size: 0.7em;
+    color: var(--text-muted);
+}
+
+.landing-anyra {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+}
+
+/* Subheadline */
+.landing-subheadline {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-weight: 400;
+    color: var(--text-secondary);
+    max-width: 620px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+    letter-spacing: 0;
+}
+
+/* CTA group */
+.landing-cta-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Shiny animated border button */
+.btn--shiny {
+    position: relative;
+    overflow: hidden;
+    border-radius: 9999px;
+    padding: 1.1rem 2.25rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #ffffff;
+    background: linear-gradient(#000000, #000000) padding-box,
+        conic-gradient(
+            from var(--gradient-angle),
+            transparent 0%,
+            var(--teal-500) 10%,
+            var(--teal-400) 20%,
+            var(--purple-400) 30%,
+            var(--teal-500) 40%,
+            transparent 50%
+        ) border-box;
+    border: 2px solid transparent;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    isolation: isolate;
+    animation: landing-border-spin 3s linear infinite;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@keyframes landing-border-spin {
+    to {
+        --gradient-angle: 360deg;
+    }
+}
+
+.btn--shiny:hover {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+                0 0 30px rgba(20, 184, 166, 0.4);
+}
+
+.btn--shiny:active {
+    transform: translateY(1px);
+}
+
+.btn--shiny::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 120%, rgba(20, 184, 166, 0.15), transparent 60%);
+    pointer-events: none;
+}
+
+.btn--shiny span,
+.btn--shiny i,
+.btn--shiny svg {
+    position: relative;
+    z-index: 2;
+}
+
+/* Animation classes */
+.landing-animate-in {
+    animation: landing-fadeSlideIn 0.8s ease forwards;
+    opacity: 0;
+}
+
+@keyframes landing-fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   APP-WIDE AMBIENT BACKGROUNDS
+   Subtle versions for vibe-check, hub, etc.
+   ============================================ */
+
+/* Shared ambient background for app screens */
+.screen-ambient-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.screen-ambient-bg .ambient-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.5;
+}
+
+/* Vibe check - less grid, more sparkles */
+#screen-vibe-check .ambient-grid {
+    opacity: 0.3;
+}
+
+/* Ambient sparkles container */
+.ambient-sparkles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.ambient-sparkles canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.screen-ambient-bg .ambient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    transition: transform 0.5s ease-out;
+}
+
+.screen-ambient-bg .ambient-orb--purple {
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, var(--purple-400) 0%, rgba(168, 85, 247, 0.2) 30%, transparent 60%);
+    opacity: 0.25;
+    right: -20%;
+    top: 20%;
+}
+
+.screen-ambient-bg .ambient-orb--teal {
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, var(--teal-400) 0%, rgba(20, 184, 166, 0.2) 30%, transparent 60%);
+    opacity: 0.2;
+    left: -15%;
+    bottom: 10%;
+}
+
+.screen-ambient-bg .ambient-orb--teal-top {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--teal-400) 0%, rgba(20, 184, 166, 0.2) 30%, transparent 60%);
+    opacity: 0.18;
+    left: -10%;
+    top: -5%;
+}
+
+/* Vibe Check screen styling */
+#screen-vibe-check {
+    position: relative;
+    background: #000;
+    overflow: auto;
+}
+
+#screen-vibe-check .landing-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#screen-vibe-check .screen-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Vibe-check specific orb positioning - push orbs to corners and dim */
+#vibe-orb-purple {
+    left: -40%;
+    bottom: -30%;
+    top: auto;
+    opacity: 0.2;
+}
+
+#vibe-orb-blue {
+    display: none;
+}
+
+#vibe-orb-teal {
+    right: -35%;
+    bottom: -25%;
+    left: auto;
+    top: auto;
+    opacity: 0.15;
+}
+
+/* Hub screen styling */
+#screen-hub {
+    position: relative;
+    background: #000;
+    overflow: auto;
+}
+
+#screen-hub .landing-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#screen-hub .screen-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hub-specific orb positioning */
+#hub-orb-purple {
+    top: -30%;
+    left: -20%;
+    opacity: 0.35;
+}
+
+#hub-orb-blue {
+    top: 20%;
+    right: -35%;
+    left: auto;
+    opacity: 0.35;
+}
+
+#hub-orb-teal {
+    bottom: -20%;
+    left: -15%;
+    opacity: 0.25;
+}
+
+/* Module screen styling */
+#screen-module {
+    position: relative;
+}
+
+/* ============================================
+   SHINY SELECTED STATE
+   For cards, buttons when selected/active
+   ============================================ */
+
+@property --card-gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.shiny-selected {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(#0a0a0a, #0a0a0a) padding-box,
+        conic-gradient(
+            from var(--card-gradient-angle),
+            transparent 0%,
+            var(--teal-500) 5%,
+            var(--teal-400) 15%,
+            var(--purple-400) 25%,
+            var(--teal-500) 35%,
+            transparent 45%
+        ) border-box !important;
+    border: 2px solid transparent !important;
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 0 20px rgba(20, 184, 166, 0.3) !important;
+    animation: card-border-spin 3s linear infinite;
+}
+
+@keyframes card-border-spin {
+    to {
+        --card-gradient-angle: 360deg;
+    }
+}
+
+.shiny-selected::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 120%, rgba(20, 184, 166, 0.15), transparent 60%);
+    z-index: 0;
+}
+
+/* Dot pattern overlay for selected cards */
+.shiny-selected::after {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    background: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.3) 0.5px, transparent 0) padding-box;
+    background-size: 4px 4px;
+    background-repeat: space;
+    mask-image: conic-gradient(
+        from calc(var(--card-gradient-angle) + 45deg),
+        black,
+        transparent 10% 90%,
+        black
+    );
+    border-radius: inherit;
+    opacity: 0.4;
+}
+
+/* Shiny hover state for cards */
+.shiny-hover {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.shiny-hover:hover {
+    background: linear-gradient(#0a0a0a, #0a0a0a) padding-box,
+        conic-gradient(
+            from var(--card-gradient-angle),
+            transparent 0%,
+            var(--teal-500) 5%,
+            var(--teal-400) 15%,
+            var(--purple-400) 25%,
+            var(--teal-500) 35%,
+            transparent 45%
+        ) border-box !important;
+    border: 2px solid transparent !important;
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 0 15px rgba(20, 184, 166, 0.2) !important;
+    animation: card-border-spin 3s linear infinite;
+}
+
+.shiny-hover:hover::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 120%, rgba(20, 184, 166, 0.1), transparent 60%);
+    z-index: 0;
+}
+
+/* Progress bar shiny effect */
+.progress-shiny {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(90deg, var(--teal-500), var(--teal-400), var(--purple-400));
+    background-size: 200% 100%;
+    animation: progress-shimmer 2s ease-in-out infinite;
+}
+
+@keyframes progress-shimmer {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* ============================================
+   MOBILE RESPONSIVENESS
+   ============================================ */
+
+@media (max-width: 768px) {
+    .landing-content {
+        padding: 1.5rem;
+        padding-bottom: 12vh; /* Push content up more on mobile */
+    }
+
+    .landing-inner {
+        width: 95%;
+    }
+
+    .landing-badge {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .landing-headline {
+        font-size: clamp(2.25rem, 12vw, 3.5rem);
+        margin-bottom: 1rem;
+    }
+
+    .landing-subheadline {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+        padding: 0 0.5rem;
+    }
+
+    .landing-cta-group {
+        gap: 0.875rem;
+        width: 100%;
+    }
+
+    .btn--shiny {
+        padding: 1rem 1.75rem;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+
+    .btn--google {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+
+    /* Reduce orb sizes on mobile */
+    .landing-orb--purple {
+        width: 600px;
+        height: 600px;
+        opacity: 0.25;
+    }
+
+    .landing-orb--blue {
+        width: 500px;
+        height: 500px;
+        opacity: 0.3;
+    }
+
+    .landing-orb--teal {
+        width: 450px;
+        height: 450px;
+        opacity: 0.2;
+    }
+
+    /* Reduce ambient orbs on mobile */
+    .screen-ambient-bg .ambient-orb--purple {
+        width: 500px;
+        height: 500px;
+        opacity: 0.1;
+    }
+
+    .screen-ambient-bg .ambient-orb--teal {
+        width: 400px;
+        height: 400px;
+        opacity: 0.08;
+    }
+
+    /* Hide cursor glow on touch devices */
+    .landing-cursor-glow {
+        display: none !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .landing-headline {
+        font-size: clamp(2rem, 14vw, 2.75rem);
+    }
+
+    .landing-byline {
+        font-size: clamp(1rem, 4vw, 1.25rem);
+    }
+
+    .landing-subheadline {
+        font-size: 0.9rem;
+    }
+
+    .btn--shiny,
+    .btn--google {
+        max-width: 280px;
+        padding: 0.875rem 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    /* Further reduce orbs on small screens */
+    .landing-orb--purple {
+        width: 400px;
+        height: 400px;
+    }
+
+    .landing-orb--blue {
+        width: 350px;
+        height: 350px;
+    }
+
+    .landing-orb--teal {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+/* Landscape phone orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+    .landing-content {
+        padding: 1rem;
+        justify-content: flex-start;
+        padding-top: 2rem;
+    }
+
+    .landing-badge {
+        margin-bottom: 1rem;
+    }
+
+    .landing-headline {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .landing-subheadline {
+        margin-bottom: 1.5rem;
+    }
+}

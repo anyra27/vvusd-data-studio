@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scene 03 · Sample Run · VVUSD Data Studio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/scene-page.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+
+    <style>
+        .sample-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            margin-bottom: 36px;
+        }
+        @media (max-width: 980px) { .sample-grid { grid-template-columns: 1fr; } }
+
+        .sample-side {
+            background: var(--bg-card, rgba(10,15,20,0.95));
+            border: 1px solid var(--border-default, rgba(255,255,255,0.1));
+            border-radius: 16px;
+            padding: 24px 26px;
+            backdrop-filter: blur(12px);
+        }
+        .sample-side-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            margin-bottom: 8px;
+        }
+        .sample-side-title {
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+            letter-spacing: -0.01em;
+        }
+        .sample-side.--input .sample-side-eyebrow { color: #fb923c; }
+        .sample-side.--output .sample-side-eyebrow { color: var(--scene-color); }
+
+        .csv-preview {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 10px;
+            padding: 14px 16px;
+            overflow-x: auto;
+            line-height: 1.7;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+        }
+        .csv-row { white-space: nowrap; }
+        .csv-row.--header { color: var(--text-muted, rgba(255,255,255,0.4)); border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 4px; margin-bottom: 4px; }
+
+        .csv-flag {
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+            padding: 1px 4px;
+            border-radius: 3px;
+            border-bottom: 1px dotted #ef4444;
+            cursor: help;
+        }
+
+        .messes-list {
+            margin-top: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .mess-item {
+            display: flex;
+            gap: 11px;
+            align-items: flex-start;
+            font-size: 0.9rem;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+            line-height: 1.5;
+        }
+        .mess-icon {
+            color: #fb923c;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .mess-item strong { color: var(--text-primary, #fff); font-weight: 600; }
+
+        .arrow-bridge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--scene-color);
+            grid-column: 1 / -1;
+            padding: 8px 0;
+        }
+
+        /* Output side — what the Gem produces */
+        .output-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .output-kpi {
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+        .output-kpi-label {
+            font-size: 0.65rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 4px;
+        }
+        .output-kpi-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #2dd4bf, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+        }
+
+        .output-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 14px 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+        }
+        .output-bullets li {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+        .output-bullets li::before {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 1px;
+            background: var(--scene-color);
+            box-shadow: 0 0 6px rgba(45, 212, 191, 0.5);
+            flex-shrink: 0;
+        }
+
+        /* Phase strip */
+        .phase-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 36px;
+        }
+        @media (max-width: 720px) { .phase-strip { grid-template-columns: 1fr; } }
+
+        .phase-card {
+            background: var(--bg-card, rgba(10,15,20,0.6));
+            border: 1px solid var(--border-default, rgba(255,255,255,0.08));
+            border-radius: 12px;
+            padding: 20px 22px;
+        }
+        .phase-card-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.66rem;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            color: var(--scene-color);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .phase-card-title {
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary, #fff);
+            margin-bottom: 8px;
+        }
+        .phase-card-body {
+            font-size: 0.88rem;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+            line-height: 1.55;
+        }
+
+        /* Try-it list */
+        .try-list {
+            margin-top: 14px;
+            list-style: none;
+            padding: 0;
+            counter-reset: tryStep;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .try-list li {
+            counter-increment: tryStep;
+            position: relative;
+            padding: 16px 22px 16px 64px;
+            background: var(--bg-card, rgba(10,15,20,0.6));
+            border: 1px solid var(--border-default, rgba(255,255,255,0.08));
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: var(--text-primary, #fff);
+            line-height: 1.55;
+        }
+        .try-list li::before {
+            content: counter(tryStep, decimal-leading-zero);
+            position: absolute;
+            left: 22px;
+            top: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--scene-color);
+            letter-spacing: 0.08em;
+        }
+        .try-list li code {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #2dd4bf;
+        }
+    </style>
+</head>
+<body class="scene-page" style="--scene-color: #2dd4bf;">
+    <div class="scene-bg">
+        <div class="scene-bg-grid"></div>
+        <div class="scene-bg-orb"></div>
+        <div class="scene-bg-orb-two"></div>
+    </div>
+
+    <header class="scene-header">
+        <a href="index.html" class="scene-header-logo">
+            <span class="logo-text">VVUSD</span>
+            <span class="logo-divider"></span>
+            <span class="logo-subtitle">Data Studio · Workshop</span>
+        </a>
+        <div class="scene-progress">
+            <div class="scene-progress-track"><div class="scene-progress-fill" style="width: 60%"></div></div>
+            <span class="scene-progress-label">03 / 05</span>
+        </div>
+        <div class="scene-header-actions">
+            <a href="gallery.html" class="scene-icon-btn" title="Open the live gallery">
+                <i data-lucide="grid-3x3" style="width: 16px; height: 16px;"></i>
+            </a>
+        </div>
+    </header>
+
+    <main class="scene-wrap">
+        <div class="scene-eyebrow-row">
+            <span class="scene-eyebrow-pill">Scene 03</span>
+            <span class="scene-eyebrow-label">Sample Run</span>
+            <span class="scene-eyebrow-time">~10 min</span>
+        </div>
+
+        <h1 class="scene-tagline">Watch your Gem <span class="scene-tagline-accent">clean before it builds.</span></h1>
+        <p class="scene-lead">The sample CSV is intentionally messy — name variants, mixed dates, "absent" as text, blanks. Your Gem's first move is always to <em>spot the messes</em> and propose a fix. Drop the file in, watch Phase 1 happen, then say <code style="font-family: 'JetBrains Mono', monospace; padding: 2px 6px; background: rgba(255,255,255,0.05); border-radius: 4px; font-size: 0.85em;">go</code>.</p>
+
+        <div class="sample-grid">
+
+            <div class="sample-side --input">
+                <div class="sample-side-eyebrow">What you'll drop in</div>
+                <h3 class="sample-side-title">sample-classroom-data.csv</h3>
+
+                <div class="csv-preview">
+                    <div class="csv-row --header">Student Name, Status, Grade, Date Submitted, Last Comment</div>
+                    <div class="csv-row">Jamie Park, Submitted, 88, <span class="csv-flag" title="Mixed date format">3/4/25</span>, "Solid lab work"</div>
+                    <div class="csv-row"><span class="csv-flag" title="Name variant of row 1">Sofia Reyes</span>, Submitted, 92, <span class="csv-flag" title="Different date format">2025-03-04</span>, ""</div>
+                    <div class="csv-row"><span class="csv-flag" title="Trailing space">Jamie Park </span>, Submitted, 88, <span class="csv-flag" title="Yet another format">March 4, 2025</span>, ""</div>
+                    <div class="csv-row">Marcus Chen, <span class="csv-flag" title="Text in numeric column">Missing</span>, <span class="csv-flag" title="Text in numeric column">absent</span>, <span class="csv-flag" title="Blank">,</span> ""</div>
+                    <div class="csv-row"><span class="csv-flag" title="Lowercase variant of Sofia">sofia reyes</span>, Submitted, 92, <span class="csv-flag" title="Yet another date format">Mar-04</span>, ""</div>
+                    <div class="csv-row">Ava Patel, Late, 76, 3/5/25, "Re-do?"</div>
+                    <div class="csv-row" style="color: var(--text-muted, rgba(255,255,255,0.4));">… 22 more rows</div>
+                </div>
+
+                <ul class="messes-list">
+                    <li class="mess-item">
+                        <i data-lucide="alert-triangle" style="width: 16px; height: 16px;" class="mess-icon"></i>
+                        <span><strong>Mixed date formats</strong> — five different formats in seven rows</span>
+                    </li>
+                    <li class="mess-item">
+                        <i data-lucide="alert-triangle" style="width: 16px; height: 16px;" class="mess-icon"></i>
+                        <span><strong>Name duplicates</strong> — "Jamie Park", "Jamie Park ", "jamie park"; "Sofia Reyes" vs "Sophia Reyes"</span>
+                    </li>
+                    <li class="mess-item">
+                        <i data-lucide="alert-triangle" style="width: 16px; height: 16px;" class="mess-icon"></i>
+                        <span><strong>Text in numeric columns</strong> — "absent", "Missing"</span>
+                    </li>
+                    <li class="mess-item">
+                        <i data-lucide="alert-triangle" style="width: 16px; height: 16px;" class="mess-icon"></i>
+                        <span><strong>Blanks</strong> in graded fields and the comment column</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sample-side --output">
+                <div class="sample-side-eyebrow">What your Gem returns</div>
+                <h3 class="sample-side-title">A draft dashboard, after Phase 3</h3>
+
+                <div class="output-kpi-grid">
+                    <div class="output-kpi"><div class="output-kpi-label">Submission</div><div class="output-kpi-value">86%</div></div>
+                    <div class="output-kpi"><div class="output-kpi-label">Class Avg</div><div class="output-kpi-value">81</div></div>
+                    <div class="output-kpi"><div class="output-kpi-label">Proficient</div><div class="output-kpi-value">61%</div></div>
+                    <div class="output-kpi"><div class="output-kpi-label">Top–Bottom Gap</div><div class="output-kpi-value">28</div></div>
+                </div>
+
+                <ul class="output-bullets">
+                    <li>Score-distribution chart with VVUSD blue→green gradient</li>
+                    <li>Top 5 leaderboard with gold/silver/bronze rank badges</li>
+                    <li>Roster flagging students worth a closer look</li>
+                    <li>Progress bar toward 70% proficient target</li>
+                    <li>One-sentence audience callout — what to do next</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <p class="section-eyebrow">How the Gem works · every time</p>
+        <h2 class="section-title">Three phases. No skipping.</h2>
+        <div class="phase-strip">
+            <div class="phase-card">
+                <span class="phase-card-num">Phase 01 · Acknowledge & Clean</span>
+                <h3 class="phase-card-title">Spot the mess. Propose a fix. Wait.</h3>
+                <p class="phase-card-body">The Gem confirms what it sees, lists the data problems, and offers to clean them. It will not analyze before you say <code style="font-family: 'JetBrains Mono', monospace; padding: 1px 5px; background: rgba(255,255,255,0.05); border-radius: 3px; font-size: 0.88em;">go</code>.</p>
+            </div>
+            <div class="phase-card">
+                <span class="phase-card-num">Phase 02 · Interview</span>
+                <h3 class="phase-card-title">Three short questions before building.</h3>
+                <p class="phase-card-body">Audience? Big question? Anyone or anything specific to watch? Default audience pulls from your TEACHER.md.</p>
+            </div>
+            <div class="phase-card">
+                <span class="phase-card-num">Phase 03 · Build</span>
+                <h3 class="phase-card-title">Complete HTML, strict UI Library.</h3>
+                <p class="phase-card-body">A copyable HTML document using only <code style="font-family: 'JetBrains Mono', monospace; padding: 1px 5px; background: rgba(255,255,255,0.05); border-radius: 3px; font-size: 0.88em;">.ui-*</code> classes from your library, Chart.js with the brand gradient, an audience callout that ends with the move to make next.</p>
+            </div>
+        </div>
+
+        <p class="section-eyebrow">Try it now</p>
+        <h2 class="section-title">Open your Gem and run this.</h2>
+        <ol class="try-list">
+            <li>Open your <strong>Classroom Data Analyzer</strong> Gem.</li>
+            <li>Drag <strong>sample-classroom-data.csv</strong> into the chat. (Or drag-drop from where you saved it in Scene 02.)</li>
+            <li>Read what the Gem says back — it should call out the messes you saw above and propose a cleanup.</li>
+            <li>Reply <code>go</code>. The Gem cleans, then asks the three Phase 2 questions.</li>
+            <li>Answer: audience = <code>PLC</code>, big question = <code>Where's the gap on Lab 03?</code>, watch = <code>Marcus Chen</code>.</li>
+            <li>The Gem builds a complete HTML dashboard. Save it as <code>sample-dashboard.html</code> and open it in a browser. <strong>Make sure ui-library.css is in the same folder</strong> — it's only there if you saved it from Scene 02.</li>
+            <li>Once you have the sample working, you're ready for the real thing. Move on.</li>
+        </ol>
+
+        <nav class="scene-footer-nav">
+            <a href="scene-2-kit.html" class="btn-scene btn-scene--ghost">
+                <i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i>
+                <span>Back to kit</span>
+            </a>
+            <a href="scene-4-build.html" class="btn-scene btn-scene--primary">
+                <span>Build with your real data</span>
+                <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+            </a>
+        </nav>
+    </main>
+
+    <script>
+        (function () {
+            document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+        })();
+        if (window.lucide) lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1317 @@
+/* Animations */
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Presentation-style slide up animation */
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Instagram stories-style horizontal slide transitions */
+@keyframes slideOutLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-60px);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.timeline-story-content {
+    transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+}
+
+.timeline-story-content.slide-out {
+    animation: slideOutLeft 0.25s ease-out forwards;
+}
+
+.timeline-story-content.slide-in {
+    animation: slideInFromRight 0.3s ease-out forwards;
+}
+
+/* Presentation-style animate-in class with stagger support */
+.animate-in {
+    animation: fadeSlideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-in[style*="animation-delay"] {
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes cursorBlink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes cursorBounce {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-3px, -3px);
+    }
+}
+
+@keyframes bounceDown {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateY(6px);
+        opacity: 1;
+    }
+}
+
+/* Utility Classes for Animations */
+.animate-fade-in {
+    animation: fadeIn var(--duration-normal) var(--ease-out);
+}
+
+.animate-slide-in {
+    animation: fadeSlideIn var(--duration-normal) var(--ease-out);
+}
+
+.animate-scale-in {
+    animation: scaleIn var(--duration-normal) var(--ease-out);
+}
+
+.delay-100 {
+    animation-delay: 100ms;
+}
+
+.delay-200 {
+    animation-delay: 200ms;
+}
+
+.delay-300 {
+    animation-delay: 300ms;
+}
+
+.delay-500 {
+    animation-delay: 500ms;
+}
+
+/* Typing cursor for chat demos */
+.typing-cursor {
+    animation: cursorBlink 0.8s infinite;
+    color: var(--teal-400);
+    font-weight: bold;
+}
+
+/* Pulse border for clickable highlights - teal */
+@keyframes pulse-border {
+    0%, 100% {
+        border-color: var(--teal-400);
+        box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4);
+    }
+    50% {
+        border-color: var(--teal-300);
+        box-shadow: 0 0 20px 4px rgba(20, 184, 166, 0.3);
+    }
+}
+
+/* Quiz answer button selection animations */
+@keyframes answerPop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes answerCorrect {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 20px 8px rgba(34, 197, 94, 0.3);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
+}
+
+@keyframes answerWrong {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    20%, 60% {
+        transform: translateX(-4px);
+    }
+    40%, 80% {
+        transform: translateX(4px);
+    }
+}
+
+/* Quiz question card transitions */
+@keyframes questionFadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.98);
+    }
+}
+
+@keyframes questionFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Quiz transition utility classes */
+.quiz-question-enter {
+    animation: questionFadeIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.quiz-question-exit {
+    animation: questionFadeOut 0.25s ease-out both;
+}
+
+.quiz-answer-pop {
+    animation: answerPop 0.15s ease-out;
+}
+
+.quiz-answer-correct {
+    animation: answerCorrect 0.5s ease-out;
+}
+
+.quiz-answer-wrong {
+    animation: answerWrong 0.4s ease-out;
+}
+
+/* Feedback animations */
+@keyframes feedbackPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes contentFadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+.quiz-feedback-enter {
+    animation: feedbackPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.quiz-content-exit {
+    animation: contentFadeOut 0.2s ease-out both;
+    pointer-events: none;
+}
+
+/* Smooth card background/border transition */
+.quiz-card-animated {
+    transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+/* Pro Tips intro animations - pure vibrant orange */
+@keyframes proTipGridPulse {
+    0%, 100% {
+        opacity: 0.6;
+        background-size: 60px 60px;
+    }
+    50% {
+        opacity: 0.9;
+        background-size: 62px 62px;
+    }
+}
+
+@keyframes proTipLightningGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 40px rgba(255, 107, 0, 0.7))
+                drop-shadow(0 0 80px rgba(139, 92, 246, 0.3));
+        transform: scale(1);
+    }
+    33% {
+        filter: drop-shadow(0 0 50px rgba(255, 140, 50, 0.8))
+                drop-shadow(0 0 90px rgba(168, 85, 247, 0.4));
+        transform: scale(1.02);
+    }
+    66% {
+        filter: drop-shadow(0 0 45px rgba(255, 107, 0, 0.75))
+                drop-shadow(0 0 85px rgba(99, 102, 241, 0.35));
+        transform: scale(1.01);
+    }
+}
+
+@keyframes proTipBadgePulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(255, 107, 0, 0.25), 0 0 40px rgba(139, 92, 246, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(255, 107, 0, 0.4), 0 0 50px rgba(139, 92, 246, 0.2);
+    }
+}
+
+.pro-tip-animated-grid {
+    animation: proTipGridPulse 4s ease-in-out infinite;
+}
+
+.pro-tip-lightning {
+    animation: proTipLightningGlow 2.5s ease-in-out infinite;
+}
+
+.pro-tip-badge-animated {
+    animation: proTipBadgePulse 2s ease-in-out infinite;
+}
+
+/* Pro Tips instruction overlay animated border - vibrant orange glow */
+@keyframes proTipOverlayBorder {
+    0%, 100% {
+        border-color: rgba(255, 107, 0, 0.5);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(255, 107, 0, 0.25);
+    }
+    50% {
+        border-color: rgba(255, 140, 50, 0.7);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 35px rgba(255, 107, 0, 0.4);
+    }
+}
+
+.pro-tip-overlay-animated {
+    animation: proTipOverlayBorder 2s ease-in-out infinite;
+}
+
+/* Pro Tip Hero Card - subtle entrance animation */
+.pro-tip-hero-card {
+    animation: heroCardFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes heroCardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ==========================================
+   n8n-Style Animated Borders & Effects
+   ========================================== */
+
+/* Flowing gradient border animation */
+@keyframes n8nBorderFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Electric tracer effect - flows around border */
+@keyframes n8nBorderTracer {
+    0% {
+        --angle: 0deg;
+    }
+    100% {
+        --angle: 360deg;
+    }
+}
+
+/* Pulsing glow effect */
+@keyframes n8nGlow {
+    0%, 100% {
+        box-shadow:
+            0 0 20px rgba(255, 107, 0, 0.3),
+            0 0 40px rgba(255, 107, 0, 0.15),
+            0 0 60px rgba(255, 107, 0, 0.05),
+            inset 0 0 60px rgba(255, 107, 0, 0.03);
+    }
+    50% {
+        box-shadow:
+            0 0 30px rgba(255, 140, 50, 0.4),
+            0 0 60px rgba(255, 107, 0, 0.25),
+            0 0 90px rgba(255, 107, 0, 0.1),
+            inset 0 0 80px rgba(255, 107, 0, 0.05);
+    }
+}
+
+/* Intense glow for hero elements */
+@keyframes n8nGlowIntense {
+    0%, 100% {
+        filter: drop-shadow(0 0 20px rgba(255, 107, 0, 0.6))
+                drop-shadow(0 0 40px rgba(255, 140, 50, 0.3))
+                drop-shadow(0 0 60px rgba(139, 92, 246, 0.15));
+    }
+    50% {
+        filter: drop-shadow(0 0 30px rgba(255, 140, 50, 0.8))
+                drop-shadow(0 0 60px rgba(255, 107, 0, 0.4))
+                drop-shadow(0 0 80px rgba(139, 92, 246, 0.25));
+    }
+}
+
+/* Lightning bolt float animation */
+@keyframes n8nLightningFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-8px) rotate(1deg);
+    }
+    75% {
+        transform: translateY(4px) rotate(-1deg);
+    }
+}
+
+/* Ambient particle float */
+@keyframes n8nParticleFloat {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateY(-20px) translateX(10px);
+        opacity: 0.7;
+    }
+}
+
+/* Smoke/mist effect */
+@keyframes n8nSmoke {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.4;
+    }
+    50% {
+        transform: translateY(-30px) scale(1.3);
+        opacity: 0.2;
+    }
+    100% {
+        transform: translateY(-60px) scale(1.6);
+        opacity: 0;
+    }
+}
+
+/* Border gradient shimmer */
+@keyframes n8nBorderShimmer {
+    0% {
+        border-color: rgba(255, 107, 0, 0.3);
+    }
+    25% {
+        border-color: rgba(255, 140, 50, 0.5);
+    }
+    50% {
+        border-color: rgba(251, 146, 60, 0.4);
+    }
+    75% {
+        border-color: rgba(255, 107, 0, 0.5);
+    }
+    100% {
+        border-color: rgba(255, 107, 0, 0.3);
+    }
+}
+
+/* n8n-style card with animated gradient border */
+.n8n-card {
+    position: relative;
+    background: linear-gradient(160deg, rgba(30, 25, 35, 0.95) 0%, rgba(20, 18, 25, 0.98) 100%);
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.n8n-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: 24px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 107, 0, 0.6),
+        rgba(255, 140, 50, 0.3),
+        rgba(139, 92, 246, 0.2),
+        rgba(255, 107, 0, 0.4),
+        rgba(251, 146, 60, 0.5)
+    );
+    background-size: 300% 300%;
+    animation: n8nBorderFlow 4s ease infinite;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.n8n-card-glow {
+    animation: n8nGlow 3s ease-in-out infinite;
+}
+
+/* Lightning bolt container */
+.n8n-lightning {
+    animation: n8nLightningFloat 4s ease-in-out infinite, n8nGlowIntense 2s ease-in-out infinite;
+}
+
+/* Gradient text effect */
+.n8n-gradient-text {
+    background: linear-gradient(135deg, #ff6b00 0%, #ff8a3d 50%, #ffb366 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Ambient glow spots */
+.n8n-ambient-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+    animation: n8nParticleFloat 6s ease-in-out infinite;
+}
+
+/* Tip card animated border */
+.n8n-tip-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(30, 30, 32, 0.95), rgba(20, 20, 22, 0.98));
+    border: 2px solid transparent;
+    border-radius: 16px;
+    animation: n8nBorderShimmer 3s ease-in-out infinite;
+}
+
+.n8n-tip-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 18px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 107, 0, 0.5),
+        rgba(255, 140, 50, 0.2),
+        rgba(100, 150, 255, 0.15),
+        rgba(255, 107, 0, 0.4)
+    );
+    background-size: 200% 200%;
+    animation: n8nBorderFlow 3s ease infinite;
+    z-index: -1;
+}
+
+/* ==========================================
+   Decision Buckets Quiz Animations
+   ========================================== */
+
+/* Pulsing glow for task card */
+@keyframes task-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px 4px rgba(168, 85, 247, 0.2);
+    }
+}
+
+/* Pop effect for correct answer checkmark */
+@keyframes successPop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Particle burst animation - uses CSS custom properties for direction */
+@keyframes particleBurst {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx, 0), var(--ty, 0)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Bucket card hover state */
+.bucket-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.bucket-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Bucket card selected states */
+.bucket-card--correct {
+    animation: answerCorrect 0.5s ease-out;
+}
+
+.bucket-card--incorrect {
+    animation: answerWrong 0.4s ease-out;
+}
+
+/* Feedback card entrance */
+@keyframes feedbackSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bucket-feedback-enter {
+    animation: feedbackSlideIn 0.3s ease-out forwards;
+}
+
+/* ==========================================
+   Interface Tour Button Animations
+   ========================================== */
+
+/* Gentle pulse for "Next" buttons - draws attention without being distracting */
+@keyframes btnPulseGentle {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+.btn-pulse {
+    animation: btnPulseGentle 2s ease-in-out infinite;
+}
+
+/* Pink accent button for interface tour - matches highlight color */
+.btn-interface-next {
+    background: linear-gradient(135deg, var(--pink-500) 0%, var(--pink-600) 100%);
+    border: none;
+    color: white;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    animation: btnPulseGentle 2s ease-in-out infinite;
+    box-shadow: 0 4px 20px rgba(236, 72, 153, 0.3);
+}
+
+.btn-interface-next:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 28px rgba(236, 72, 153, 0.45);
+    animation: none;
+}
+
+.btn-interface-next:active {
+    transform: scale(0.98);
+}
+
+/* Smooth content transition for interface tour */
+.interface-tour-content {
+    transition: opacity 0.15s ease-out;
+}
+
+.interface-tour-content--updating {
+    opacity: 0.7;
+}
+
+/* ==========================================
+   Interface Tour Highlights & Panels
+   ========================================== */
+
+/* Shiny highlight animation - cycling teal/purple gradient border */
+@keyframes shinyHighlightSpin {
+    to {
+        --highlight-angle: 360deg;
+    }
+}
+
+@property --highlight-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+/* Scale pulse animation to draw attention to clickable elements */
+@keyframes clickMePulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(20, 184, 166, 0.4);
+    }
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 35px rgba(20, 184, 166, 0.7), 0 0 60px rgba(20, 184, 166, 0.3);
+    }
+}
+
+/* Highlightable elements in mock UI - shiny animated border style */
+.mock-ui-highlight {
+    transition: all 0.3s ease;
+}
+
+.mock-ui-highlight--active {
+    position: relative;
+    background: linear-gradient(rgba(10, 15, 20, 0.95), rgba(10, 15, 20, 0.95)) padding-box,
+        conic-gradient(from var(--highlight-angle, 0deg),
+            transparent 0%,
+            var(--teal-500) 10%,
+            var(--teal-400) 20%,
+            var(--purple-400) 30%,
+            var(--teal-500) 40%,
+            transparent 50%) border-box !important;
+    border: 2px solid transparent !important;
+    animation: shinyHighlightSpin 3s linear infinite, clickMePulse 2s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(20, 184, 166, 0.3);
+    cursor: pointer;
+}
+
+.mock-ui-highlight--active:hover {
+    box-shadow: 0 0 30px rgba(20, 184, 166, 0.5);
+    animation: shinyHighlightSpin 3s linear infinite; /* Stop pulse on hover */
+}
+
+/* Legacy pulse animation - keeping for backwards compatibility */
+@keyframes highlightPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 2px var(--teal-400), 0 0 12px rgba(20, 184, 166, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 3px var(--teal-400), 0 0 20px rgba(20, 184, 166, 0.6);
+    }
+}
+
+/* Instruction panel base styles */
+.instruction-panel {
+    position: absolute;
+    width: 260px;
+    z-index: 50;
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+}
+
+.instruction-panel--visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.instruction-panel__card {
+    background: rgba(10, 15, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 16px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.instruction-panel__card--success {
+    border-color: rgba(34, 197, 94, 0.4);
+}
+
+.instruction-panel__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.instruction-panel__icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(20, 184, 166, 0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.instruction-panel__icon--success {
+    background: rgba(34, 197, 94, 0.2);
+}
+
+.instruction-panel__title {
+    color: var(--teal-400);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.instruction-panel__title--success {
+    color: var(--green-400);
+}
+
+.instruction-panel__body {
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+    font-size: 0.85rem;
+}
+
+.instruction-panel__hint {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(20, 184, 166, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--teal-400);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Popup overlays that appear on click */
+.mock-ui-popup {
+    position: absolute;
+    z-index: 100;
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.mock-ui-popup--visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+/* Navigation button panel variant (not absolutely positioned) */
+.instruction-panel--nav {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    transform: none;
+    margin-top: var(--space-5);
+}
+
+.instruction-panel--nav.instruction-panel--visible {
+    transform: none;
+}
+
+/* ==========================================
+   Path Selection Cards (Why Use AI Ready screen)
+   ========================================== */
+
+.path-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 32px 24px;
+    background: rgba(20, 20, 25, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.path-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.05) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.path-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.path-card:hover::before {
+    opacity: 1;
+}
+
+.path-card:active {
+    transform: translateY(-2px);
+}
+
+/* Recommended card variant */
+.path-card--recommended {
+    border-color: var(--purple-500);
+    background: linear-gradient(180deg, rgba(168, 85, 247, 0.12) 0%, rgba(20, 20, 25, 0.9) 100%);
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.15);
+}
+
+.path-card--recommended:hover {
+    border-color: var(--purple-400);
+    box-shadow: 0 20px 50px rgba(168, 85, 247, 0.25), 0 0 40px rgba(168, 85, 247, 0.2);
+}
+
+.path-card__badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 4px 12px;
+    background: linear-gradient(135deg, var(--purple-500), var(--purple-600));
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.path-card__icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.path-card:hover .path-card__icon {
+    transform: scale(1.1);
+}
+
+.path-card__icon--blue {
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+}
+
+.path-card:hover .path-card__icon--blue {
+    box-shadow: 0 12px 32px rgba(59, 130, 246, 0.4);
+}
+
+.path-card__icon--teal {
+    background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.3);
+}
+
+.path-card:hover .path-card__icon--teal {
+    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.4);
+}
+
+.path-card__content {
+    flex: 1;
+    margin-bottom: 16px;
+}
+
+.path-card__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 4px 0;
+}
+
+.path-card__subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0 0 12px 0;
+}
+
+.path-card__description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.path-card__cta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.path-card__cta--blue {
+    color: var(--blue-400);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.path-card:hover .path-card__cta--blue {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--blue-300);
+}
+
+.path-card__cta--teal {
+    color: var(--teal-400);
+    background: rgba(20, 184, 166, 0.1);
+}
+
+.path-card:hover .path-card__cta--teal {
+    background: rgba(20, 184, 166, 0.2);
+    color: var(--teal-300);
+}
+
+.path-card__cta i {
+    transition: transform 0.2s ease;
+}
+
+.path-card:hover .path-card__cta i {
+    transform: translateX(4px);
+}
+
+/* Power User Shortcuts demo animations */
+@keyframes paste-highlight {
+    0% {
+        background-color: rgba(20, 184, 166, 0.3);
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+@keyframes fade-switch {
+    0% {
+        opacity: 0.5;
+        transform: translateY(-5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================
+   Multimodal Module Animations
+   ========================================== */
+
+/* Image patch pulse - purple variant */
+@keyframes patchPulse {
+    0%, 100% {
+        background: rgba(168, 85, 247, 0.15);
+        transform: scale(1);
+    }
+    50% {
+        background: rgba(168, 85, 247, 0.5);
+        transform: scale(1.1);
+    }
+}
+
+/* Image patch pulse - blue variant */
+@keyframes patchPulseBlue {
+    0%, 100% {
+        background: rgba(59, 130, 246, 0.15);
+        transform: scale(1);
+    }
+    50% {
+        background: rgba(59, 130, 246, 0.5);
+        transform: scale(1.1);
+    }
+}
+
+/* Audio waveform bars animation */
+@keyframes audioWave {
+    0%, 100% {
+        height: 15px;
+        opacity: 0.4;
+    }
+    50% {
+        height: 50px;
+        opacity: 1;
+    }
+}
+
+/* Image patch pulse - orange variant (for video frames) */
+@keyframes patchPulseOrange {
+    0%, 100% {
+        background: rgba(251, 146, 60, 0.2);
+        transform: scale(1);
+    }
+    50% {
+        background: rgba(251, 146, 60, 0.6);
+        transform: scale(1.05);
+    }
+}
+
+/* Filmstrip scrolling animation */
+@keyframes filmstripScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-232px); /* Width of 4 frames (50px + 8px gap) * 4 */
+    }
+}
+
+/* Shake animation for wrong answers */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* ==========================================
+   Cheat Sheet Card Animations
+   ========================================== */
+
+/* Icon float animation */
+@keyframes cheatIconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+/* Cheat card base styles */
+.cheat-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.cheat-card:hover {
+    transform: translateY(-6px);
+}
+
+/* Color-specific hover states */
+.cheat-card--blue:hover {
+    border-color: var(--blue-400);
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.25);
+}
+
+.cheat-card--purple:hover {
+    border-color: var(--purple-400);
+    box-shadow: 0 12px 40px rgba(168, 85, 247, 0.25);
+}
+
+.cheat-card--green:hover {
+    border-color: var(--green-400);
+    box-shadow: 0 12px 40px rgba(34, 197, 94, 0.25);
+}
+
+.cheat-card--amber:hover {
+    border-color: var(--amber-400);
+    box-shadow: 0 12px 40px rgba(251, 146, 60, 0.25);
+}
+
+.cheat-card--orange:hover {
+    border-color: var(--orange-400);
+    box-shadow: 0 12px 40px rgba(251, 146, 60, 0.25);
+}
+
+/* Icon hover float */
+.cheat-card:hover .cheat-icon {
+    animation: cheatIconFloat 1.5s ease-in-out infinite;
+}
+
+/* Animated border effect (n8n-style) */
+.cheat-card--animated {
+    position: relative;
+    overflow: hidden;
+}
+
+.cheat-card--animated::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 2px;
+    background: linear-gradient(
+        135deg,
+        var(--card-color-1, var(--purple-400)),
+        var(--card-color-2, var(--purple-600)),
+        transparent,
+        var(--card-color-1, var(--purple-400))
+    );
+    background-size: 300% 300%;
+    animation: n8nBorderFlow 4s ease infinite;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.cheat-card--animated:hover::before {
+    opacity: 1;
+}
+
+/* PD Experience Animation - buzzword float */
+@keyframes buzzwordFloat {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    15% {
+        opacity: 0.9;
+    }
+    70% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+}
+
+/* Clock pulse for PD comparison animation */
+@keyframes clockPulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+}
+
+/* Progress bar color cycling */
+@keyframes progressColorCycle {
+    0% { background-position: 0% 50%; box-shadow: 0 0 8px var(--teal-glow, rgba(20, 184, 166, 0.4)); }
+    25% { box-shadow: 0 0 8px var(--blue-glow, rgba(59, 130, 246, 0.4)); }
+    50% { background-position: 100% 50%; box-shadow: 0 0 8px var(--purple-glow, rgba(168, 85, 247, 0.4)); }
+    75% { box-shadow: 0 0 8px var(--orange-glow, rgba(251, 146, 60, 0.4)); }
+    100% { background-position: 0% 50%; box-shadow: 0 0 8px var(--teal-glow, rgba(20, 184, 166, 0.4)); }
+}

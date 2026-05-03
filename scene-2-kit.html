@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scene 02 · Get Your Kit · VVUSD Data Studio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/scene-page.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+
+    <style>
+        /* No-zip kit checklist */
+        .kit-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        .kit-row {
+            background: var(--bg-card, rgba(10,15,20,0.95));
+            border: 1px solid var(--border-default, rgba(255,255,255,0.1));
+            border-radius: 14px;
+            padding: 22px 26px;
+            display: grid;
+            grid-template-columns: 56px minmax(0, 1fr) auto;
+            gap: 22px;
+            align-items: center;
+            backdrop-filter: blur(12px);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .kit-row:hover {
+            border-color: rgba(45, 212, 191, 0.35);
+            transform: translateY(-1px);
+        }
+        .kit-row.is-done {
+            border-color: rgba(34, 197, 94, 0.45);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.05), rgba(10, 15, 20, 0.95));
+        }
+        .kit-row.is-done::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: #4ade80;
+        }
+
+        .kit-row-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: -0.02em;
+            text-align: center;
+            line-height: 1;
+        }
+        .kit-row.is-done .kit-row-num {
+            color: #4ade80;
+        }
+
+        .kit-row-content {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-width: 0;
+        }
+        .kit-row-title {
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary, #fff);
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .kit-row-where {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 10px;
+            background: rgba(45, 212, 191, 0.1);
+            color: var(--scene-color);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-family: 'JetBrains Mono', monospace;
+            white-space: nowrap;
+        }
+        .kit-row-desc {
+            font-size: 0.92rem;
+            color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+            line-height: 1.55;
+        }
+
+        .kit-row-action {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .kit-action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 18px;
+            background: var(--bg-card, rgba(10, 15, 20, 0.95));
+            border: 1px solid var(--border-default, rgba(255, 255, 255, 0.1));
+            border-radius: 10px;
+            color: var(--text-primary, #fff);
+            text-decoration: none;
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .kit-action-btn:hover {
+            border-color: var(--scene-color);
+            background: color-mix(in srgb, var(--scene-color) 12%, transparent);
+            transform: translateY(-1px);
+        }
+        .kit-action-btn.is-done {
+            background: rgba(34, 197, 94, 0.12);
+            border-color: rgba(34, 197, 94, 0.4);
+            color: #4ade80;
+        }
+
+        .kit-check {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border: 1.5px solid var(--border-default, rgba(255, 255, 255, 0.15));
+            border-radius: 50%;
+            color: transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: transparent;
+            flex-shrink: 0;
+        }
+        .kit-check:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        .kit-check.is-checked {
+            background: #4ade80;
+            border-color: #4ade80;
+            color: #000;
+        }
+
+        @media (max-width: 720px) {
+            .kit-row {
+                grid-template-columns: 44px 1fr;
+                gap: 14px;
+                padding: 18px 20px;
+            }
+            .kit-row-action {
+                grid-column: 1 / -1;
+                justify-content: flex-end;
+            }
+            .kit-row-num {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Step-by-step Gem setup callout */
+        .gem-callout {
+            background: linear-gradient(135deg, rgba(192, 132, 252, 0.05), rgba(96, 165, 250, 0.04));
+            border: 1px solid rgba(192, 132, 252, 0.2);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-top: 36px;
+        }
+        .gem-callout-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: #c084fc;
+            margin-bottom: 8px;
+        }
+        .gem-callout-title {
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary, #fff);
+            margin-bottom: 14px;
+        }
+        .gem-steps {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px 24px;
+        }
+        @media (max-width: 720px) {
+            .gem-steps { grid-template-columns: 1fr; }
+            .gem-callout { padding: 22px; }
+        }
+        .gem-step {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .gem-step-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: #c084fc;
+            font-weight: 500;
+            background: rgba(192, 132, 252, 0.1);
+            border-radius: 9999px;
+            padding: 2px 8px;
+            line-height: 1.4;
+            flex-shrink: 0;
+        }
+        .gem-step-text {
+            font-size: 0.94rem;
+            color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+            line-height: 1.55;
+        }
+        .gem-step-text strong {
+            color: var(--text-primary, #fff);
+            font-weight: 600;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--bg-card, rgba(10, 15, 20, 0.98));
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            border-radius: 12px;
+            padding: 14px 20px;
+            color: #4ade80;
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 2000;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+        }
+        .toast.is-visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body class="scene-page" style="--scene-color: #2dd4bf;">
+    <div class="scene-bg">
+        <div class="scene-bg-grid"></div>
+        <div class="scene-bg-orb"></div>
+        <div class="scene-bg-orb-two"></div>
+    </div>
+
+    <header class="scene-header">
+        <a href="index.html" class="scene-header-logo">
+            <span class="logo-text">VVUSD</span>
+            <span class="logo-divider"></span>
+            <span class="logo-subtitle">Data Studio · Workshop</span>
+        </a>
+        <div class="scene-progress">
+            <div class="scene-progress-track"><div class="scene-progress-fill" style="width: 40%"></div></div>
+            <span class="scene-progress-label">02 / 05</span>
+        </div>
+        <div class="scene-header-actions">
+            <a href="gallery.html" class="scene-icon-btn" title="Open the live gallery">
+                <i data-lucide="grid-3x3" style="width: 16px; height: 16px;"></i>
+            </a>
+        </div>
+    </header>
+
+    <main class="scene-wrap">
+        <div class="scene-eyebrow-row">
+            <span class="scene-eyebrow-pill">Scene 02</span>
+            <span class="scene-eyebrow-label">Get Your Kit</span>
+            <span class="scene-eyebrow-time">~7 min</span>
+        </div>
+
+        <h1 class="scene-tagline">Five things, <span class="scene-tagline-accent">no zip required.</span></h1>
+        <p class="scene-lead">Each item below has its own action — copy or download. The label on the right tells you exactly where it goes in Gemini's Gem builder. Click each row to mark it done.</p>
+
+        <div class="kit-list" id="kit-list">
+
+            <div class="kit-row" data-kit-id="instructions">
+                <div class="kit-row-num">01</div>
+                <div class="kit-row-content">
+                    <div class="kit-row-title">
+                        Gem Instructions
+                        <span class="kit-row-where">→ Gemini · Instructions field</span>
+                    </div>
+                    <div class="kit-row-desc">The full system prompt that runs your Gem — three phases (clean → interview → build), strict UI Library, audience voices.</div>
+                </div>
+                <div class="kit-row-action">
+                    <button class="kit-action-btn" data-action="copy" data-source="kit/gem-instructions.md">
+                        <i data-lucide="clipboard" style="width: 15px; height: 15px;"></i>
+                        <span class="action-label">Copy to clipboard</span>
+                    </button>
+                    <button class="kit-check" aria-label="Mark step done">
+                        <i data-lucide="check" style="width: 16px; height: 16px;"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="kit-row" data-kit-id="teacher">
+                <div class="kit-row-num">02</div>
+                <div class="kit-row-content">
+                    <div class="kit-row-title">
+                        TEACHER.md
+                        <span class="kit-row-where">→ Gemini · Knowledge files</span>
+                    </div>
+                    <div class="kit-row-desc">Your classroom context — grade band, subject, class size, default audience. Edit it before uploading. The Gem reads it before answering anything.</div>
+                </div>
+                <div class="kit-row-action">
+                    <a class="kit-action-btn" data-action="download" href="kit/TEACHER.md" download="TEACHER.md">
+                        <i data-lucide="download" style="width: 15px; height: 15px;"></i>
+                        <span class="action-label">Download file</span>
+                    </a>
+                    <button class="kit-check" aria-label="Mark step done">
+                        <i data-lucide="check" style="width: 16px; height: 16px;"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="kit-row" data-kit-id="sample">
+                <div class="kit-row-num">03</div>
+                <div class="kit-row-content">
+                    <div class="kit-row-title">
+                        Sample Classroom CSV
+                        <span class="kit-row-where">→ Drop into the chat</span>
+                    </div>
+                    <div class="kit-row-desc">Lab 03 data for 28 students — intentionally messy (mixed dates, name variants, "absent" as text, blanks). You'll use it in Scene 03 to test your Gem.</div>
+                </div>
+                <div class="kit-row-action">
+                    <a class="kit-action-btn" data-action="download" href="kit/sample-classroom-data.csv" download="sample-classroom-data.csv">
+                        <i data-lucide="download" style="width: 15px; height: 15px;"></i>
+                        <span class="action-label">Download CSV</span>
+                    </a>
+                    <button class="kit-check" aria-label="Mark step done">
+                        <i data-lucide="check" style="width: 16px; height: 16px;"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="kit-row" data-kit-id="reference">
+                <div class="kit-row-num">04</div>
+                <div class="kit-row-content">
+                    <div class="kit-row-title">
+                        UI Library Reference
+                        <span class="kit-row-where">→ Open + leave open</span>
+                    </div>
+                    <div class="kit-row-desc">Live demo of every <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.85em; padding: 1px 4px; background: rgba(255,255,255,0.05); border-radius: 3px;">.ui-*</code> class your Gem will use. Keep it open while you build — what "good" looks like.</div>
+                </div>
+                <div class="kit-row-action">
+                    <a class="kit-action-btn" data-action="open" href="kit/ui-library-complete.html" target="_blank" rel="noopener">
+                        <i data-lucide="external-link" style="width: 15px; height: 15px;"></i>
+                        <span class="action-label">Open in new tab</span>
+                    </a>
+                    <button class="kit-check" aria-label="Mark step done">
+                        <i data-lucide="check" style="width: 16px; height: 16px;"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="kit-row" data-kit-id="css">
+                <div class="kit-row-num">05</div>
+                <div class="kit-row-content">
+                    <div class="kit-row-title">
+                        ui-library.css
+                        <span class="kit-row-where" style="background: rgba(251, 146, 60, 0.1); color: #fb923c; border-color: rgba(251, 146, 60, 0.25);">→ Save next to your dashboard HTML</span>
+                    </div>
+                    <div class="kit-row-desc">Single bundled stylesheet. <strong>Never goes into Gemini.</strong> Save it next to the HTML your Gem produces so the styles render when you open the dashboard.</div>
+                </div>
+                <div class="kit-row-action">
+                    <a class="kit-action-btn" data-action="download" href="kit/ui-library.css" download="ui-library.css">
+                        <i data-lucide="download" style="width: 15px; height: 15px;"></i>
+                        <span class="action-label">Download CSS</span>
+                    </a>
+                    <button class="kit-check" aria-label="Mark step done">
+                        <i data-lucide="check" style="width: 16px; height: 16px;"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="gem-callout">
+            <div class="gem-callout-eyebrow">Once you have all five</div>
+            <h3 class="gem-callout-title">Build your Gem in Gemini</h3>
+            <div class="gem-steps">
+                <div class="gem-step"><span class="gem-step-num">01</span><div class="gem-step-text">Go to <strong>gemini.google.com</strong>, open <strong>Gems</strong>, click <strong>Create new Gem</strong>.</div></div>
+                <div class="gem-step"><span class="gem-step-num">02</span><div class="gem-step-text">Name it <strong>Classroom Data Analyzer</strong>.</div></div>
+                <div class="gem-step"><span class="gem-step-num">03</span><div class="gem-step-text">Paste the <strong>Gem Instructions</strong> (step 01 above) into the <strong>Instructions</strong> field.</div></div>
+                <div class="gem-step"><span class="gem-step-num">04</span><div class="gem-step-text">Open <strong>TEACHER.md</strong> in a text editor — fill in your grade, subject, class size, audience.</div></div>
+                <div class="gem-step"><span class="gem-step-num">05</span><div class="gem-step-text">Drag <strong>TEACHER.md</strong> into the Gem's <strong>Knowledge</strong> files section.</div></div>
+                <div class="gem-step"><span class="gem-step-num">06</span><div class="gem-step-text">Hit <strong>Save</strong>. Test it: <em>"Hi! Ready when you are."</em> — your Gem should ask for your data.</div></div>
+            </div>
+        </div>
+
+        <nav class="scene-footer-nav">
+            <a href="index.html" class="btn-scene btn-scene--ghost">
+                <i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i>
+                <span>Back</span>
+            </a>
+            <a href="scene-3-sample.html" class="btn-scene btn-scene--primary">
+                <span>Try the sample data</span>
+                <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+            </a>
+        </nav>
+    </main>
+
+    <div class="toast" id="toast">
+        <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>
+        <span id="toast-msg">Copied to clipboard</span>
+    </div>
+
+    <script>
+        (function () {
+            document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+        })();
+
+        // Show a toast briefly
+        function flashToast(msg) {
+            const toast = document.getElementById('toast');
+            const m = document.getElementById('toast-msg');
+            m.textContent = msg;
+            toast.classList.add('is-visible');
+            setTimeout(() => toast.classList.remove('is-visible'), 2200);
+        }
+
+        // Mark a row done
+        function markDone(row, btn) {
+            row.classList.add('is-done');
+            const check = row.querySelector('.kit-check');
+            check.classList.add('is-checked');
+            if (btn) btn.classList.add('is-done');
+        }
+
+        // Copy-to-clipboard for the Gem instructions
+        document.querySelectorAll('[data-action="copy"]').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                const src = btn.getAttribute('data-source');
+                try {
+                    const r = await fetch(src);
+                    if (!r.ok) throw new Error('fetch failed: ' + r.status);
+                    const text = await r.text();
+                    await navigator.clipboard.writeText(text);
+                    flashToast('Gem Instructions copied · paste into Gemini');
+                    markDone(btn.closest('.kit-row'), btn);
+                    btn.querySelector('.action-label').textContent = 'Copied ✓';
+                } catch (err) {
+                    console.error(err);
+                    flashToast('Copy failed — try again or open the file directly');
+                }
+            });
+        });
+
+        // Download buttons just need to register the click as "done"
+        document.querySelectorAll('[data-action="download"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                markDone(btn.closest('.kit-row'), btn);
+            });
+        });
+
+        // Open-in-new-tab links
+        document.querySelectorAll('[data-action="open"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                markDone(btn.closest('.kit-row'), btn);
+            });
+        });
+
+        // Manual checkmark toggle
+        document.querySelectorAll('.kit-check').forEach(check => {
+            check.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const row = check.closest('.kit-row');
+                const isDone = row.classList.toggle('is-done');
+                check.classList.toggle('is-checked', isDone);
+            });
+        });
+
+        if (window.lucide) lucide.createIcons();
+    </script>
+</body>
+</html>

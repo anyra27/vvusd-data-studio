@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Apps Script credentials (keep local)
+.clasp.json
+.clasprc.json
+
+# Local secrets / env
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+firebase-debug.log
+
+# Test artifacts
+test-results/
+playwright-report/
+.playwright-mcp/
+
+# Cloudflare local dev
+.wrangler/
+.dev.vars

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VVUSD Data Studio · Build a dashboard from your real classroom data</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/scene-page.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <style>
+        .hook-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+            gap: 56px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+        @media (max-width: 980px) { .hook-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+        .hook-tease {
+            background: linear-gradient(135deg, rgba(45, 212, 191, 0.05) 0%, rgba(96, 165, 250, 0.04) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 28px 30px;
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+        }
+        .hook-tease::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--scene-color), transparent);
+        }
+        .hook-tease-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.66rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: var(--scene-color);
+            margin-bottom: 14px;
+        }
+
+        .hook-tease-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .hook-kpi {
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 12px;
+            padding: 14px 16px;
+        }
+        .hook-kpi-label {
+            font-size: 0.7rem;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 6px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .hook-kpi-value {
+            font-family: 'Space Grotesk', 'Montserrat', sans-serif;
+            font-size: 1.85rem;
+            font-weight: 600;
+            line-height: 1.05;
+            background: linear-gradient(135deg, #2dd4bf, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hook-kpi-value.--steady {
+            background: linear-gradient(135deg, #fb923c, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hook-kpi-sub {
+            margin-top: 4px;
+            font-size: 0.72rem;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+        }
+
+        .hook-tease-chart {
+            margin-top: 14px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 14px 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .hook-tease-chart-label {
+            font-size: 0.7rem;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .hook-tease-chart-canvas { width: 100%; height: 110px; }
+
+        .hook-tease-callout {
+            margin-top: 18px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, rgba(45,212,191,0.08), rgba(96,165,250,0.06));
+            border-left: 3px solid var(--scene-color);
+            border-radius: 6px;
+            font-style: italic;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.92rem;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+            line-height: 1.5;
+        }
+
+        .what-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 64px;
+        }
+        @media (max-width: 880px) { .what-grid { grid-template-columns: 1fr; } }
+
+        .what-card {
+            background: var(--bg-card, rgba(10,15,20,0.95));
+            border: 1px solid var(--border-default, rgba(255,255,255,0.1));
+            border-radius: 14px;
+            padding: 24px;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .what-card:hover {
+            border-color: rgba(45,212,191,0.35);
+            transform: translateY(-2px);
+        }
+        .what-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(45,212,191,0.12);
+            color: var(--scene-color);
+            margin-bottom: 14px;
+        }
+        .what-title {
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary, #fff);
+            margin-bottom: 8px;
+        }
+        .what-body {
+            font-size: 0.92rem;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+            line-height: 1.55;
+        }
+
+        .arc-rail {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+        @media (max-width: 880px) { .arc-rail { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 540px) { .arc-rail { grid-template-columns: 1fr; } }
+
+        .arc-step {
+            background: var(--bg-card, rgba(10,15,20,0.6));
+            border: 1px solid var(--border-default, rgba(255,255,255,0.08));
+            border-radius: 12px;
+            padding: 18px 18px 22px;
+        }
+        .arc-step-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.66rem;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            color: var(--scene-color);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .arc-step-title {
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-weight: 600;
+            font-size: 0.98rem;
+            color: var(--text-primary, #fff);
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+        .arc-step-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+        }
+    </style>
+</head>
+<body class="scene-page" style="--scene-color: #2dd4bf;">
+    <div class="scene-bg">
+        <div class="scene-bg-grid"></div>
+        <div class="scene-bg-orb"></div>
+        <div class="scene-bg-orb-two"></div>
+    </div>
+
+    <header class="scene-header">
+        <a href="index.html" class="scene-header-logo">
+            <span class="logo-text">VVUSD</span>
+            <span class="logo-divider"></span>
+            <span class="logo-subtitle">Data Studio · Workshop</span>
+        </a>
+        <div class="scene-progress">
+            <div class="scene-progress-track"><div class="scene-progress-fill" style="width: 20%"></div></div>
+            <span class="scene-progress-label">01 / 05</span>
+        </div>
+        <div class="scene-header-actions">
+            <a href="gallery.html" class="scene-icon-btn" title="Open the live gallery">
+                <i data-lucide="grid-3x3" style="width: 16px; height: 16px;"></i>
+            </a>
+        </div>
+    </header>
+
+    <main class="scene-wrap">
+        <div class="scene-eyebrow-row">
+            <span class="scene-eyebrow-pill">Scene 01</span>
+            <span class="scene-eyebrow-label">Hook + Frame</span>
+            <span class="scene-eyebrow-time">~3 min</span>
+        </div>
+
+        <div class="hook-grid">
+            <div>
+                <h1 class="scene-tagline">Your messy CSV. <span class="scene-tagline-accent">A dashboard your PLC actually wants.</span> By the end of the hour.</h1>
+                <p class="scene-lead">You'll build a Custom Gemini Gem that knows your classroom, drop your real Google Classroom export into it, and walk out with a one-page dashboard you'd be proud to project on Wednesday. The same workflow runs every week from here.</p>
+                <a href="scene-2-kit.html" class="btn-scene btn-scene--primary">
+                    <span>Let's go</span>
+                    <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+                </a>
+            </div>
+
+            <div class="hook-tease">
+                <div class="hook-tease-eyebrow">By the end of Scene 4</div>
+                <div class="hook-tease-kpi-grid">
+                    <div class="hook-kpi">
+                        <div class="hook-kpi-label">Submission</div>
+                        <div class="hook-kpi-value">86%</div>
+                        <div class="hook-kpi-sub">↑ 4pts vs last week</div>
+                    </div>
+                    <div class="hook-kpi">
+                        <div class="hook-kpi-label">Class Avg</div>
+                        <div class="hook-kpi-value">81</div>
+                        <div class="hook-kpi-sub">B-band, steady</div>
+                    </div>
+                    <div class="hook-kpi">
+                        <div class="hook-kpi-label">Proficient</div>
+                        <div class="hook-kpi-value --steady">61%</div>
+                        <div class="hook-kpi-sub">9 pts to target</div>
+                    </div>
+                    <div class="hook-kpi">
+                        <div class="hook-kpi-label">Top–Bottom Gap</div>
+                        <div class="hook-kpi-value --steady">28</div>
+                        <div class="hook-kpi-sub">closer than Q1</div>
+                    </div>
+                </div>
+                <div class="hook-tease-chart">
+                    <div class="hook-tease-chart-label">Score Distribution · Lab 03</div>
+                    <canvas id="hook-chart" class="hook-tease-chart-canvas"></canvas>
+                </div>
+                <div class="hook-tease-callout">
+                    Three students hovering at the 70% line — pull them on Wednesday during the warm-up.
+                </div>
+            </div>
+        </div>
+
+        <p class="section-eyebrow">What you'll leave with</p>
+        <h2 class="section-title">Three deliverables, one workflow.</h2>
+        <div class="what-grid">
+            <div class="what-card">
+                <div class="what-icon"><i data-lucide="sparkles" style="width: 22px; height: 22px;"></i></div>
+                <h3 class="what-title">A Custom Gem you keep</h3>
+                <p class="what-body">It knows your grade band, subject, class size, and audience defaults. Lives in your Gemini workspace forever.</p>
+            </div>
+            <div class="what-card">
+                <div class="what-icon"><i data-lucide="bar-chart-3" style="width: 22px; height: 22px;"></i></div>
+                <h3 class="what-title">A dashboard from real data</h3>
+                <p class="what-body">An HTML one-pager you can project, screenshot, send. Built from your actual Google Classroom CSV — not a sample.</p>
+            </div>
+            <div class="what-card">
+                <div class="what-icon"><i data-lucide="repeat" style="width: 22px; height: 22px;"></i></div>
+                <h3 class="what-title">A 90-second workflow</h3>
+                <p class="what-body">Sunday afternoon: paste a CSV, chat with your Gem, save the HTML. Walk into Wednesday's PLC with the right thing.</p>
+            </div>
+        </div>
+
+        <p class="section-eyebrow">The arc</p>
+        <h2 class="section-title">Five scenes, fifty minutes.</h2>
+        <div class="arc-rail">
+            <div class="arc-step"><span class="arc-step-num">Scene 01</span><div class="arc-step-title">Hook + Frame</div><span class="arc-step-time">~3 min</span></div>
+            <div class="arc-step"><span class="arc-step-num">Scene 02</span><div class="arc-step-title">Get Your Kit</div><span class="arc-step-time">~7 min</span></div>
+            <div class="arc-step"><span class="arc-step-num">Scene 03</span><div class="arc-step-title">Sample Run</div><span class="arc-step-time">~10 min</span></div>
+            <div class="arc-step"><span class="arc-step-num">Scene 04</span><div class="arc-step-title">Real Data + Audience</div><span class="arc-step-time">~15 min</span></div>
+            <div class="arc-step"><span class="arc-step-num">Scene 05</span><div class="arc-step-title">Submit + Gallery</div><span class="arc-step-time">~15 min</span></div>
+        </div>
+
+        <nav class="scene-footer-nav">
+            <span class="scene-footer-meta">VVUSD AI Task Force · Data Studio</span>
+            <a href="scene-2-kit.html" class="btn-scene btn-scene--primary">
+                <span>Get your kit</span>
+                <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+            </a>
+        </nav>
+    </main>
+
+    <script>
+        (function () {
+            document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+        })();
+
+        (function renderHookChart() {
+            const el = document.getElementById('hook-chart');
+            if (!el || !window.Chart) return;
+            const ctx = el.getContext('2d');
+            const grad = ctx.createLinearGradient(0, 0, 0, 110);
+            grad.addColorStop(0, 'rgba(45, 212, 191, 0.85)');
+            grad.addColorStop(1, 'rgba(96, 165, 250, 0.45)');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['50–59', '60–69', '70–79', '80–89', '90–99', '100'],
+                    datasets: [{ data: [1, 3, 6, 9, 7, 2], backgroundColor: grad, borderRadius: 4, borderSkipped: false }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { duration: 1200 },
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.45)', font: { size: 9, family: 'JetBrains Mono' } } },
+                        y: { display: false, beginAtZero: true }
+                    }
+                }
+            });
+        })();
+
+        if (window.lucide) lucide.createIcons();
+    </script>
+</body>
+</html>

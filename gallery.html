@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Gallery · VVUSD Data Studio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: var(--font-body, 'Inter', sans-serif);
+            background: var(--bg-primary, #000);
+            color: var(--text-primary, #fff);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .gallery-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .gallery-grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        [data-theme="light"] .gallery-grid-bg {
+            background-image: linear-gradient(rgba(2,6,23,0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(2,6,23,0.03) 1px, transparent 1px);
+        }
+        .gallery-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.18;
+        }
+        .gallery-orb--teal { width: 700px; height: 700px; background: #2dd4bf; top: -10%; left: -10%; }
+        .gallery-orb--purple { width: 600px; height: 600px; background: #c084fc; top: 20%; right: -10%; }
+        .gallery-orb--orange { width: 600px; height: 600px; background: #fb923c; bottom: -10%; left: 30%; }
+        .gallery-orb--blue { width: 600px; height: 600px; background: #60a5fa; bottom: 10%; right: 20%; }
+        [data-theme="light"] .gallery-orb { opacity: 0.22; }
+
+        /* Header */
+        .gallery-header {
+            position: relative;
+            z-index: 2;
+            padding: 30px 48px 22px;
+            border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.06));
+            backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.4);
+        }
+        [data-theme="light"] .gallery-header {
+            background: rgba(255, 255, 255, 0.65);
+            border-bottom: 1px solid rgba(2,6,23,0.08);
+        }
+        .gallery-header-inner {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .gallery-eyebrow-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 10px;
+        }
+        .gallery-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+        }
+        .gallery-title {
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-size: clamp(1.7rem, 3vw, 2.2rem);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin: 0 0 8px;
+        }
+        .gallery-title-accent {
+            background: linear-gradient(135deg, #2dd4bf, #c084fc, #fb923c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gallery-subtitle {
+            font-size: 0.98rem;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+            margin: 0;
+            max-width: 640px;
+        }
+        .gallery-meta {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+            flex-wrap: wrap;
+        }
+        .gallery-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .gallery-stat strong {
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-weight: 600;
+            color: var(--text-primary, #fff);
+            font-size: 1.4rem;
+        }
+        .live-pulse {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #4ade80;
+        }
+        .live-pulse::before {
+            content: '';
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: pulse 1.6s ease-in-out infinite;
+        }
+        .live-pulse.error { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); color: #fca5a5; }
+        .live-pulse.error::before { background: #fca5a5; animation: none; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.7); }
+        }
+        .gallery-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: var(--bg-card, rgba(10,15,20,0.95));
+            border: 1px solid var(--border-default, rgba(255,255,255,0.1));
+            border-radius: 9999px;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+            text-decoration: none;
+            font-size: 0.82rem;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+        }
+        .gallery-back:hover {
+            color: var(--text-primary, #fff);
+            border-color: var(--border-accent, rgba(255,255,255,0.15));
+        }
+
+        /* Body */
+        .gallery-main {
+            position: relative;
+            z-index: 1;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 36px 48px 80px;
+        }
+        @media (max-width: 720px) {
+            .gallery-header { padding: 22px 20px 18px; }
+            .gallery-main { padding: 22px 20px 60px; }
+        }
+
+        /* Audience tabs */
+        .audience-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+        .audience-tab {
+            background: var(--bg-card, rgba(10,15,20,0.6));
+            border: 1px solid var(--border-default, rgba(255,255,255,0.1));
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+            padding: 9px 16px;
+            border-radius: 9999px;
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .audience-tab:hover {
+            border-color: var(--border-accent, rgba(255,255,255,0.15));
+            color: var(--text-primary, #fff);
+        }
+        .audience-tab.is-active {
+            background: var(--text-primary, #fff);
+            color: var(--bg-primary, #000);
+            border-color: var(--text-primary, #fff);
+        }
+        .audience-tab .count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+
+        /* Sections */
+        .area-section {
+            margin-bottom: 56px;
+        }
+        .area-section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.06));
+        }
+        .area-section-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            color: var(--section-color);
+            padding: 5px 10px;
+            border: 1px solid color-mix(in srgb, var(--section-color) 35%, transparent);
+            border-radius: 9999px;
+            background: color-mix(in srgb, var(--section-color) 10%, transparent);
+            text-transform: uppercase;
+        }
+        .area-section-title {
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-primary, #fff);
+            margin: 0;
+            letter-spacing: -0.01em;
+        }
+        .area-section-count {
+            margin-left: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+        }
+
+        /* Cards */
+        .submissions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+            gap: 22px;
+        }
+        @media (max-width: 720px) { .submissions-grid { grid-template-columns: 1fr; } }
+
+        .submission-card {
+            background: var(--bg-card, rgba(10,15,20,0.95));
+            border: 1px solid var(--border-default, rgba(255,255,255,0.1));
+            border-left: 3px solid var(--section-color);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            transition: transform 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .submission-card:hover {
+            transform: translateY(-3px);
+            border-color: color-mix(in srgb, var(--section-color) 50%, transparent);
+            box-shadow: 0 16px 40px rgba(var(--section-rgb), 0.18);
+        }
+        .submission-card.is-new {
+            animation: cardLand 1.6s ease-out;
+        }
+        @keyframes cardLand {
+            0% { opacity: 0; transform: translateY(16px); box-shadow: 0 0 0 0 var(--section-color); }
+            30% { opacity: 1; transform: translateY(0); box-shadow: 0 0 0 4px color-mix(in srgb, var(--section-color) 40%, transparent); }
+            100% { box-shadow: 0 16px 40px rgba(var(--section-rgb), 0.18); }
+        }
+
+        .submission-iframe-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            background: #fff;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-default, rgba(255,255,255,0.1));
+        }
+        .submission-iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+        .submission-iframe-fallback {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: rgba(0,0,0,0.4);
+            font-size: 0.85rem;
+            background: linear-gradient(135deg, #f9fafb, #e5e7eb);
+            text-align: center;
+            padding: 24px;
+        }
+
+        .submission-body {
+            padding: 18px 22px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .submission-meta {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: 0.7rem;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+        .submission-area-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 9px;
+            border-radius: 9999px;
+            background: color-mix(in srgb, var(--section-color) 12%, transparent);
+            color: var(--section-color);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+        }
+        .submission-title {
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary, #fff);
+            margin: 0;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+        .submission-description {
+            font-size: 0.92rem;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+            line-height: 1.55;
+            margin: 0;
+            font-style: italic;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .submission-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-subtle, rgba(255,255,255,0.06));
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        .submission-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 13px;
+            background: color-mix(in srgb, var(--section-color) 12%, transparent);
+            color: var(--section-color);
+            text-decoration: none;
+            border-radius: 9999px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .submission-link-btn:hover {
+            background: color-mix(in srgb, var(--section-color) 22%, transparent);
+            transform: translateX(2px);
+        }
+        .submission-members {
+            font-size: 0.76rem;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+        }
+
+        /* Empty state */
+        .area-section-empty {
+            padding: 36px;
+            text-align: center;
+            background: var(--bg-card, rgba(10,15,20,0.6));
+            border: 1px dashed var(--border-default, rgba(255,255,255,0.1));
+            border-radius: 16px;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+            font-style: italic;
+            font-size: 0.92rem;
+        }
+
+        /* Demo banner */
+        .demo-banner {
+            margin: 16px auto 0;
+            max-width: 1600px;
+            padding: 12px 20px;
+            background: rgba(251, 146, 60, 0.08);
+            border: 1px solid rgba(251, 146, 60, 0.2);
+            border-radius: 8px;
+            color: #fb923c;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-bg">
+        <div class="gallery-grid-bg"></div>
+        <div class="gallery-orb gallery-orb--teal"></div>
+        <div class="gallery-orb gallery-orb--purple"></div>
+        <div class="gallery-orb gallery-orb--orange"></div>
+        <div class="gallery-orb gallery-orb--blue"></div>
+    </div>
+
+    <header class="gallery-header">
+        <div class="gallery-header-inner">
+            <div>
+                <div class="gallery-eyebrow-row">
+                    <span class="gallery-eyebrow">VVUSD Data Studio · Live Gallery</span>
+                </div>
+                <h1 class="gallery-title">What this room <span class="gallery-title-accent">just built.</span></h1>
+                <p class="gallery-subtitle">Dashboards from real classrooms, organized by audience. Refreshes every 15 seconds.</p>
+                <a href="index.html" class="gallery-back">
+                    <i data-lucide="arrow-left" style="width: 13px; height: 13px;"></i>
+                    <span>Back to the workshop</span>
+                </a>
+            </div>
+            <div class="gallery-meta">
+                <div class="gallery-stat">
+                    <strong id="stat-submissions">—</strong>
+                    <span>dashboards</span>
+                </div>
+                <div class="gallery-stat">
+                    <strong id="stat-areas">—</strong>
+                    <span>of 4 audiences</span>
+                </div>
+                <span class="live-pulse" id="live-pulse">Live</span>
+            </div>
+        </div>
+    </header>
+
+    <div id="demo-banner-host"></div>
+
+    <main class="gallery-main">
+        <div class="audience-tabs" id="audience-tabs">
+            <button class="audience-tab is-active" data-filter="all">All <span class="count" id="ct-all">0</span></button>
+            <button class="audience-tab" data-filter="PLC" style="--tab-color: #2dd4bf;">PLC <span class="count" id="ct-PLC">0</span></button>
+            <button class="audience-tab" data-filter="Self" style="--tab-color: #c084fc;">Self <span class="count" id="ct-Self">0</span></button>
+            <button class="audience-tab" data-filter="Parents" style="--tab-color: #fb923c;">Parents <span class="count" id="ct-Parents">0</span></button>
+            <button class="audience-tab" data-filter="Students" style="--tab-color: #60a5fa;">Students <span class="count" id="ct-Students">0</span></button>
+        </div>
+
+        <section class="area-section" data-audience="PLC" style="--section-color: #2dd4bf; --section-rgb: 20, 184, 166;">
+            <div class="area-section-header">
+                <span class="area-section-num">PLC</span>
+                <h2 class="area-section-title">Direct, data-anchored</h2>
+                <span class="area-section-count" id="count-PLC">0</span>
+            </div>
+            <div class="submissions-grid" id="grid-PLC"></div>
+        </section>
+
+        <section class="area-section" data-audience="Self" style="--section-color: #c084fc; --section-rgb: 168, 85, 247;">
+            <div class="area-section-header">
+                <span class="area-section-num">Self</span>
+                <h2 class="area-section-title">Observational, journal-tone</h2>
+                <span class="area-section-count" id="count-Self">0</span>
+            </div>
+            <div class="submissions-grid" id="grid-Self"></div>
+        </section>
+
+        <section class="area-section" data-audience="Parents" style="--section-color: #fb923c; --section-rgb: 251, 146, 60;">
+            <div class="area-section-header">
+                <span class="area-section-num">Parents</span>
+                <h2 class="area-section-title">Warm, specific, jargon-free</h2>
+                <span class="area-section-count" id="count-Parents">0</span>
+            </div>
+            <div class="submissions-grid" id="grid-Parents"></div>
+        </section>
+
+        <section class="area-section" data-audience="Students" style="--section-color: #60a5fa; --section-rgb: 59, 130, 246;">
+            <div class="area-section-header">
+                <span class="area-section-num">Students</span>
+                <h2 class="area-section-title">Second-person, encouraging</h2>
+                <span class="area-section-count" id="count-Students">0</span>
+            </div>
+            <div class="submissions-grid" id="grid-Students"></div>
+        </section>
+
+        <section class="voices-section" id="voices-section" style="margin-top: 80px; padding-top: 36px; border-top: 1px solid var(--border-subtle, rgba(255,255,255,0.06));">
+            <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px; flex-wrap: wrap;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.22em; color: var(--text-muted, rgba(255,255,255,0.4));">Voices from the room</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-muted, rgba(255,255,255,0.4));" id="voices-count">0 responses</span>
+            </div>
+            <h2 style="font-family: var(--font-display, 'Montserrat', sans-serif); font-size: clamp(1.5rem, 2.4vw, 1.9rem); font-weight: 600; color: var(--text-primary, #fff); margin: 0 0 10px; letter-spacing: -0.02em;">Where else could AI help VVUSD next year?</h2>
+            <p style="font-size: 0.96rem; color: var(--text-secondary, rgba(255,255,255,0.7)); margin: 0 0 28px; max-width: 640px;">Free-response notes from teachers in this room. The places they think AI could really matter, beyond what we built today.</p>
+            <div id="voices-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 16px;"></div>
+            <div id="voices-empty" style="display: none; padding: 32px; text-align: center; background: var(--bg-card, rgba(10,15,20,0.6)); border: 1px dashed var(--border-default, rgba(255,255,255,0.1)); border-radius: 14px; color: var(--text-muted, rgba(255,255,255,0.4)); font-style: italic; font-size: 0.92rem;">No responses yet — these come in as teachers finish.</div>
+        </section>
+    </main>
+
+    <script src="js/submissions-service.js"></script>
+    <script>
+        const MODULE_ID = 'vvusd-data-studio-2026';
+        const POLL_INTERVAL_MS = 15000;
+        const AUDIENCES = ['PLC', 'Self', 'Parents', 'Students'];
+        const seenIds = new Set();
+        let firstLoad = true;
+        let activeFilter = 'all';
+        let cachedSubmissions = [];
+
+        // Demo seeds — used when SCRIPT_URL is the placeholder. Declared up here
+        // because load() references them and runs synchronously below.
+        const DEMO_SUBMISSIONS = [
+            { id: 'demo-plc-1',     createdAt: new Date(Date.now() - 9 * 60000).toISOString(), data: { audience: 'PLC',      title: 'Lab 03 — Period 4',                 description: 'Three students hovering at 70% — pulling them Wednesday during warm-up.',                                            members: 'Maria L., Devon K.', driveFileId: '' } },
+            { id: 'demo-plc-2',     createdAt: new Date(Date.now() - 6 * 60000).toISOString(), data: { audience: 'PLC',      title: 'Quarter 2 ELA — Period 2',           description: 'Vocabulary scores up, comprehension flat. We need a comprehension warm-up routine.',                                  members: 'Allison R.',         driveFileId: '' } },
+            { id: 'demo-self-1',    createdAt: new Date(Date.now() - 4 * 60000).toISOString(), data: { audience: 'Self',     title: 'Reflection — Week 8',                description: 'I keep losing the bottom-third students after introductory direct instruction. Try splitting groups Thursday.',     members: 'Jen B.',             driveFileId: '' } },
+            { id: 'demo-parents-1', createdAt: new Date(Date.now() - 3 * 60000).toISOString(), data: { audience: 'Parents',  title: 'Mid-quarter family update — Math 7', description: 'Your student is at the proficient line — here\'s exactly what we\'re working on next, and how you can help at home.', members: 'Patricia O.',        driveFileId: '' } },
+            { id: 'demo-students-1',createdAt: new Date(Date.now() - 1 * 60000).toISOString(), data: { audience: 'Students', title: 'Where you are — Lab 03',             description: 'You scored where you scored. Here\'s what changes if you nail one thing on the next lab.',                          members: 'Jamal R.',           driveFileId: '' } }
+        ];
+        const DEMO_VOICES = [
+            { id: 'v1', userName: 'Maria L.',   createdAt: new Date(Date.now() - 5 * 60000).toISOString(), data: { response: 'Sub plans. Every Monday morning I lose 20 minutes scrambling. If AI could pull together a sub-ready packet from a 30-second voice note, that\'s gold.' } },
+            { id: 'v2', userName: 'Devon K.',   createdAt: new Date(Date.now() - 4 * 60000).toISOString(), data: { response: 'Parent contact log. I never write up the call. AI could turn what I dictate after the call into a logged record I can show admin and copy to the parent.' } },
+            { id: 'v3', userName: 'Allison R.', createdAt: new Date(Date.now() - 3 * 60000).toISOString(), data: { response: 'Differentiation by IEP goals. Paste the lesson, get a version tuned to each kid\'s active IEP goals. Right now I do this in my head and miss things.' } },
+            { id: 'v4', userName: 'Anonymous',  createdAt: new Date(Date.now() - 1 * 60000).toISOString(), data: { response: 'Honestly — anything that touches Aeries. The click-shuffle every period start is brutal. A one-page period brief would change the day.' } }
+        ];
+
+        document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+
+        function setPulse(state) {
+            const el = document.getElementById('live-pulse');
+            el.classList.remove('error');
+            if (state === 'demo') el.textContent = 'Demo · Live';
+            else if (state === 'error') { el.textContent = 'Connection issue'; el.classList.add('error'); }
+            else el.textContent = 'Live';
+        }
+
+        function escapeHtml(s) {
+            if (s === null || s === undefined) return '';
+            const d = document.createElement('div');
+            d.textContent = String(s);
+            return d.innerHTML;
+        }
+
+        function driveIframeUrl(fileId) {
+            if (!fileId) return null;
+            return `https://drive.google.com/file/d/${encodeURIComponent(fileId)}/preview`;
+        }
+
+        function buildCard(submission, isNew) {
+            const data = submission.data || {};
+            const audience = data.audience || 'PLC';
+            const div = document.createElement('div');
+            div.className = 'submission-card' + (isNew ? ' is-new' : '');
+            div.dataset.id = submission.id;
+            div.dataset.audience = audience;
+
+            const driveUrl = driveIframeUrl(data.driveFileId);
+            const ts = submission.createdAt ? new Date(submission.createdAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : '';
+            const members = data.members ? `<span class="submission-members">${escapeHtml(data.members)}</span>` : '';
+
+            const iframeHtml = driveUrl
+                ? `<iframe class="submission-iframe" src="${driveUrl}" loading="lazy" referrerpolicy="no-referrer"></iframe>`
+                : `<div class="submission-iframe-fallback">
+                       <i data-lucide="image-off" style="width: 32px; height: 32px;"></i>
+                       <span>Preview unavailable</span>
+                       <span style="font-size: 0.78rem; opacity: 0.7;">Drive file ID missing</span>
+                   </div>`;
+
+            const openLinkHtml = driveUrl
+                ? `<a class="submission-link-btn" href="${driveUrl}" target="_blank" rel="noopener noreferrer">
+                       <i data-lucide="external-link" style="width: 13px; height: 13px;"></i>
+                       <span>Open full</span>
+                   </a>`
+                : '';
+
+            div.innerHTML = `
+                <div class="submission-iframe-wrap">${iframeHtml}</div>
+                <div class="submission-body">
+                    <div class="submission-meta">
+                        <span class="submission-area-chip">${escapeHtml(audience)}</span>
+                        ${ts ? `<span>${escapeHtml(ts)}</span>` : ''}
+                    </div>
+                    <h3 class="submission-title">${escapeHtml(data.title || 'Untitled')}</h3>
+                    <p class="submission-description">${escapeHtml(data.description || '')}</p>
+                    <div class="submission-footer">
+                        ${openLinkHtml}
+                        ${members}
+                    </div>
+                </div>
+            `;
+            return div;
+        }
+
+        function render(submissions) {
+            cachedSubmissions = submissions || [];
+
+            // Group by audience
+            const byAudience = { PLC: [], Self: [], Parents: [], Students: [] };
+            (submissions || []).forEach(s => {
+                const aud = (s.data && s.data.audience) || 'PLC';
+                if (byAudience[aud]) byAudience[aud].push(s);
+            });
+
+            // Sort newest first
+            Object.keys(byAudience).forEach(k => {
+                byAudience[k].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            });
+
+            // Stats
+            const total = (submissions || []).length;
+            document.getElementById('stat-submissions').textContent = total;
+            const filledAudiences = Object.values(byAudience).filter(arr => arr.length > 0).length;
+            document.getElementById('stat-areas').textContent = filledAudiences;
+            document.getElementById('ct-all').textContent = total;
+
+            AUDIENCES.forEach(aud => {
+                const grid = document.getElementById('grid-' + aud);
+                const counter = document.getElementById('count-' + aud);
+                const tabCt = document.getElementById('ct-' + aud);
+                const items = byAudience[aud];
+
+                counter.textContent = items.length === 1 ? '1 submission' : `${items.length} submissions`;
+                if (tabCt) tabCt.textContent = items.length;
+
+                if (items.length === 0) {
+                    grid.innerHTML = `<div class="area-section-empty">No submissions yet from this group.</div>`;
+                    return;
+                }
+
+                grid.innerHTML = '';
+                items.forEach(s => {
+                    const isNew = !firstLoad && !seenIds.has(s.id);
+                    grid.appendChild(buildCard(s, isNew));
+                    seenIds.add(s.id);
+                });
+            });
+
+            firstLoad = false;
+            applyFilter();
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function applyFilter() {
+            document.querySelectorAll('.area-section').forEach(s => {
+                const aud = s.dataset.audience;
+                s.style.display = (activeFilter === 'all' || activeFilter === aud) ? '' : 'none';
+            });
+        }
+
+        function showDemoBanner() {
+            const host = document.getElementById('demo-banner-host');
+            host.innerHTML = `<div class="demo-banner"><i data-lucide="info" style="width: 16px; height: 16px;"></i><span>Demo mode — SCRIPT_URL not configured. Showing seeded data so the gallery has something to render.</span></div>`;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function renderVoices(rows) {
+            const grid = document.getElementById('voices-grid');
+            const empty = document.getElementById('voices-empty');
+            const counter = document.getElementById('voices-count');
+            const items = (rows || []).slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            counter.textContent = items.length === 1 ? '1 response' : `${items.length} responses`;
+
+            if (items.length === 0) {
+                grid.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+            empty.style.display = 'none';
+            grid.innerHTML = items.map(row => {
+                const data = row.data || {};
+                const text = (data.response || '').toString();
+                const author = row.userName && row.userName !== 'Anonymous' ? escapeHtml(row.userName) : 'A teacher in the room';
+                return `
+                    <div style="background: var(--bg-card, rgba(10,15,20,0.95)); border: 1px solid var(--border-default, rgba(255,255,255,0.1)); border-left: 3px solid #fb923c; border-radius: 12px; padding: 18px 22px; backdrop-filter: blur(12px);">
+                        <p style="font-family: 'Space Grotesk', sans-serif; font-size: 1rem; color: var(--text-primary, #fff); line-height: 1.55; margin: 0 0 12px; font-style: italic;">&ldquo;${escapeHtml(text)}&rdquo;</p>
+                        <div style="display: flex; align-items: center; gap: 8px; padding-top: 10px; border-top: 1px solid var(--border-subtle, rgba(255,255,255,0.06)); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted, rgba(255,255,255,0.4)); text-transform: uppercase; letter-spacing: 0.12em;">
+                            <i data-lucide="message-circle" style="width: 12px; height: 12px;"></i>
+                            <span>${author}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            if (window.lucide) lucide.createIcons();
+        }
+
+        async function load() {
+            const isDemo = !window.SubmissionsService || SubmissionsService.isDemoMode();
+            if (isDemo) {
+                if (firstLoad) showDemoBanner();
+                setPulse('demo');
+                render(DEMO_SUBMISSIONS);
+                renderVoices(DEMO_VOICES);
+                return;
+            }
+            try {
+                const [submissions, voices] = await Promise.all([
+                    SubmissionsService.loadDistrictSubmissions(MODULE_ID, 'project', 200),
+                    SubmissionsService.loadDistrictSubmissions(MODULE_ID, 'wishlist', 200)
+                ]);
+                render(submissions);
+                renderVoices(voices);
+                setPulse('live');
+            } catch (err) {
+                console.error('Gallery: failed to load', err);
+                setPulse('error');
+            }
+        }
+
+        // Tab filter
+        document.querySelectorAll('.audience-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.audience-tab').forEach(t => t.classList.remove('is-active'));
+                tab.classList.add('is-active');
+                activeFilter = tab.dataset.filter;
+                applyFilter();
+            });
+        });
+
+        load();
+        setInterval(load, POLL_INTERVAL_MS);
+        if (window.lucide) lucide.createIcons();
+    </script>
+</body>
+</html>

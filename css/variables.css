@@ -1,0 +1,1262 @@
+:root {
+    /* Background */
+    --bg-primary: #000000;
+    --bg-elevated: #0a0f14;
+    --bg-surface: #111820;
+    --bg-card: rgba(10, 15, 20, 0.85);
+    --bg-card-hover: rgba(15, 22, 30, 0.9);
+    
+    /* Text */
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-muted: rgba(255, 255, 255, 0.4);
+    --text-disabled: rgba(255, 255, 255, 0.2);
+    
+    /* Borders */
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-default: rgba(255, 255, 255, 0.1);
+    --border-accent: rgba(255, 255, 255, 0.15);
+    --border-strong: rgba(255, 255, 255, 0.25);
+
+    /* Module Colors */
+    /* Teal - AI Chat Basics */
+    --teal-50: #f0fdfa;
+    --teal-100: #ccfbf1;
+    --teal-200: #99f6e4;
+    --teal-300: #5eead4;
+    --teal-400: #2dd4bf;
+    --teal-500: #14b8a6;
+    --teal-600: #0d9488;
+    --teal-700: #0f766e;
+    --teal-800: #115e59;
+    --teal-900: #134e4a;
+    --teal-glow: rgba(20, 184, 166, 0.3);
+    
+    /* Blue - Model Selection */
+    --blue-50: #eff6ff;
+    --blue-100: #dbeafe;
+    --blue-200: #bfdbfe;
+    --blue-300: #93c5fd;
+    --blue-400: #60a5fa;
+    --blue-500: #3b82f6;
+    --blue-600: #2563eb;
+    --blue-700: #1d4ed8;
+    --blue-800: #1e40af;
+    --blue-900: #1e3a8a;
+    --blue-glow: rgba(59, 130, 246, 0.3);
+    
+    /* Purple - Multimodal */
+    --purple-50: #faf5ff;
+    --purple-100: #f3e8ff;
+    --purple-200: #e9d5ff;
+    --purple-300: #d8b4fe;
+    --purple-400: #c084fc;
+    --purple-500: #a855f7;
+    --purple-600: #9333ea;
+    --purple-700: #7e22ce;
+    --purple-800: #6b21a8;
+    --purple-900: #581c87;
+    --purple-glow: rgba(168, 85, 247, 0.3);
+    --purple-muted: #a78bfa;
+    
+    /* Yellow - Prompt Craft (Bright Lemon) */
+    --amber-50: #fefce8;
+    --amber-100: #fef9c3;
+    --amber-200: #fef08a;
+    --amber-300: #fde047;
+    --amber-400: #fde047;
+    --amber-500: #facc15;
+    --amber-600: #eab308;
+    --amber-700: #ca8a04;
+    --amber-800: #a16207;
+    --amber-900: #854d0e;
+    --amber-glow: rgba(253, 224, 71, 0.45);
+
+    /* Yellow - Pro Tips / Anyra Pro (Gold) */
+    --yellow-300: #fde047;
+    --yellow-400: #facc15;
+    --yellow-500: #eab308;
+    --yellow-glow: rgba(250, 204, 21, 0.3);
+    
+    /* Orange - Gemini in Classroom (Vibrant Coral) */
+    --orange-50: #fff7ed;
+    --orange-100: #ffedd5;
+    --orange-200: #fed7aa;
+    --orange-300: #fdba74;
+    --orange-400: #fb923c;
+    --orange-500: #fb923c;
+    --orange-600: #f97316;
+    --orange-700: #ea580c;
+    --orange-800: #c2410c;
+    --orange-900: #9a3412;
+    --orange-glow: rgba(251, 146, 60, 0.35);
+    
+    /* Pink - Custom Gems */
+    --pink-50: #fdf2f8;
+    --pink-100: #fce7f3;
+    --pink-200: #fbcfe8;
+    --pink-300: #f9a8d4;
+    --pink-400: #f472b6;
+    --pink-500: #ec4899;
+    --pink-600: #db2777;
+    --pink-700: #be185d;
+    --pink-800: #9d174d;
+    --pink-900: #831843;
+    --pink-glow: rgba(236, 72, 153, 0.3);
+    
+    /* Green - NotebookLM */
+    --green-50: #f0fdf4;
+    --green-100: #dcfce7;
+    --green-200: #bbf7d0;
+    --green-300: #86efac;
+    --green-400: #4ade80;
+    --green-500: #22c55e;
+    --green-600: #16a34a;
+    --green-700: #15803d;
+    --green-800: #166534;
+    --green-900: #14532d;
+    --green-glow: rgba(34, 197, 94, 0.3);
+    
+    /* Slate - Privacy & Security */
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+    --slate-500: #64748b;
+    --slate-600: #475569;
+    --slate-700: #334155;
+    --slate-800: #1e293b;
+    --slate-900: #0f172a;
+    --slate-glow: rgba(100, 116, 139, 0.3);
+
+    /* n8n-Style Colors - Pro Tips / Power User */
+    --n8n-orange: #ff6b00;
+    --n8n-orange-light: #ff8a3d;
+    --n8n-orange-bright: #ffb366;
+    --n8n-coral: #fb923c;
+    --n8n-glow: rgba(255, 107, 0, 0.4);
+    --n8n-glow-soft: rgba(255, 107, 0, 0.2);
+    --n8n-bg-dark: #0a0a0b;
+    --n8n-bg-card: rgba(20, 18, 25, 0.95);
+    --n8n-bg-card-alt: rgba(30, 25, 35, 0.95);
+    --n8n-purple-accent: rgba(139, 92, 246, 0.3);
+    --n8n-border: rgba(255, 107, 0, 0.3);
+
+    /* Semantic Colors */
+    --success: #22c55e;
+    --success-muted: rgba(34, 197, 94, 0.15);
+    --warning: #f59e0b;
+    --warning-muted: rgba(245, 158, 11, 0.15);
+    --error: #ef4444;
+    --error-muted: rgba(239, 68, 68, 0.15);
+    --info: #3b82f6;
+    --info-muted: rgba(59, 130, 246, 0.15);
+    
+    /* Interactive */
+    --focus-ring: rgba(59, 130, 246, 0.5);
+    --hover-overlay: rgba(255, 255, 255, 0.05);
+    --active-overlay: rgba(255, 255, 255, 0.1);
+
+    /* Typography */
+    --font-display: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+
+    /* Type Scale - Mobile First (slightly larger for readability) */
+    --text-xs: 0.8125rem;    /* 13px, was 12px */
+    --text-sm: 0.9375rem;    /* 15px, was 14px */
+    --text-base: 1.0625rem;  /* 17px, was 16px */
+    --text-lg: 1.1875rem;    /* 19px, was 18px */
+    --text-xl: 1.375rem;     /* 22px, was 20px */
+    --text-2xl: 1.625rem;    /* 26px, was 24px */
+    --text-3xl: 2rem;        /* 32px, was 30px */
+    --text-4xl: 2.5rem;      /* 40px, was 36px */
+    --text-5xl: 3.25rem;     /* 52px, was 48px */
+    --text-6xl: 4rem;        /* 64px, was 60px */
+
+    /* Line Heights */
+    --leading-none: 1;
+    --leading-tight: 1.15;
+    --leading-snug: 1.3;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.65;
+
+    /* Letter Spacing */
+    --tracking-tighter: -0.03em;
+    --tracking-tight: -0.02em;
+    --tracking-normal: 0;
+    --tracking-wide: 0.02em;
+    --tracking-wider: 0.05em;
+    --tracking-widest: 0.1em;
+
+    /* Spacing */
+    --space-0: 0;
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    --space-24: 6rem;
+
+    /* Border Radius */
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 24px;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+    
+    /* Animation Tokens */
+    --duration-fast: 150ms;
+    --duration-normal: 300ms;
+    --duration-slow: 500ms;
+    --duration-slower: 800ms;
+    
+    --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    /* Breakpoints */
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+}
+
+/* Desktop: Larger typography for accessibility (age 50+ friendly) */
+@media (min-width: 1024px) {
+    :root {
+        --text-xs: 1rem;         /* 16px - minimum readable */
+        --text-sm: 1.125rem;     /* 18px */
+        --text-base: 1.25rem;    /* 20px */
+        --text-lg: 1.375rem;     /* 22px */
+        --text-xl: 1.625rem;     /* 26px */
+        --text-2xl: 2rem;        /* 32px */
+        --text-3xl: 2.5rem;      /* 40px */
+        --text-4xl: 3rem;        /* 48px */
+        --text-5xl: 3.75rem;     /* 60px */
+        --text-6xl: 4.5rem;      /* 72px */
+    }
+}
+
+/* ==========================================================================
+   LIGHT MODE (Additive - Dark mode remains default and untouched)
+   Toggle via .light-mode class on <body>
+   ========================================================================== */
+
+body.light-mode {
+    /* Background - Light */
+    --bg-primary: #ffffff;
+    --bg-elevated: #f8fafc;
+    --bg-surface: #f1f5f9;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f8fafc;
+
+    /* Text - Dark */
+    --text-primary: #0f172a;
+    --text-secondary: rgba(15, 23, 42, 0.7);
+    --text-muted: rgba(15, 23, 42, 0.5);
+    --text-disabled: rgba(15, 23, 42, 0.3);
+
+    /* Borders - Dark alpha */
+    --border-subtle: rgba(0, 0, 0, 0.06);
+    --border-default: rgba(0, 0, 0, 0.1);
+    --border-accent: rgba(0, 0, 0, 0.15);
+    --border-strong: rgba(0, 0, 0, 0.25);
+
+    /* Interactive - Dark overlays */
+    --hover-overlay: rgba(0, 0, 0, 0.04);
+    --active-overlay: rgba(0, 0, 0, 0.08);
+
+    /* Shadows - Softer for light mode */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
+
+    /* Glow effects - Reduced opacity for light backgrounds */
+    --teal-glow: rgba(20, 184, 166, 0.15);
+    --blue-glow: rgba(59, 130, 246, 0.15);
+    --purple-glow: rgba(168, 85, 247, 0.15);
+    --amber-glow: rgba(253, 224, 71, 0.2);
+    --yellow-glow: rgba(250, 204, 21, 0.15);
+    --orange-glow: rgba(251, 146, 60, 0.18);
+    --pink-glow: rgba(236, 72, 153, 0.15);
+    --green-glow: rgba(34, 197, 94, 0.15);
+    --slate-glow: rgba(100, 116, 139, 0.15);
+    --n8n-glow: rgba(255, 107, 0, 0.2);
+    --n8n-glow-soft: rgba(255, 107, 0, 0.1);
+
+    /* n8n backgrounds for light mode */
+    --n8n-bg-dark: #f8fafc;
+    --n8n-bg-card: rgba(255, 255, 255, 0.95);
+    --n8n-bg-card-alt: rgba(248, 250, 252, 0.95);
+    --n8n-border: rgba(255, 107, 0, 0.2);
+}
+
+/* Light mode body background */
+body.light-mode {
+    background: var(--bg-elevated) !important;
+}
+
+/* Light mode: Override glassmorphism with solid cards */
+body.light-mode .glass,
+body.light-mode .glass-card,
+body.light-mode .glass-elevated {
+    background: var(--bg-card);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: var(--border-default);
+    box-shadow: var(--shadow-md);
+}
+
+/* Light mode: Sidebar adjustments */
+body.light-mode .module-sidebar {
+    background: var(--bg-card);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: var(--border-default);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Light mode: Header adjustments */
+body.light-mode .header,
+body.light-mode header {
+    background: var(--bg-card);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: var(--border-default);
+}
+
+/* Light mode: Step indicators in sidebar */
+body.light-mode .sidebar-step .step-indicator {
+    background: var(--bg-surface);
+}
+
+body.light-mode .sidebar-step.active .step-indicator {
+    background: color-mix(in srgb, var(--module-color) 15%, white);
+}
+
+body.light-mode .sidebar-step.completed .step-indicator {
+    background: linear-gradient(135deg, var(--module-color), var(--module-color-dark));
+}
+
+/* Light mode: Buttons */
+body.light-mode .btn-secondary,
+body.light-mode .sidebar-footer-btn {
+    background: var(--bg-surface);
+    border-color: var(--border-default);
+    color: var(--text-primary);
+}
+
+body.light-mode .btn-secondary:hover,
+body.light-mode .sidebar-footer-btn:hover {
+    background: var(--bg-elevated);
+    border-color: var(--border-accent);
+}
+
+/* Primary buttons need white text in both modes */
+.btn-primary,
+.btn.btn-primary,
+button[class*="btn-primary"] {
+    color: #ffffff !important;
+}
+
+/* Light mode: Ensure primary buttons stay white */
+body.light-mode .btn-primary,
+body.light-mode .btn.btn-primary,
+body.light-mode button[class*="btn-primary"] {
+    color: #ffffff !important;
+}
+
+/* Light mode: Sidebar needs full light treatment */
+body.light-mode .module-sidebar {
+    background: #ffffff !important;
+    color: var(--text-primary);
+}
+
+body.light-mode .module-sidebar * {
+    color: inherit;
+}
+
+body.light-mode .sidebar-header .sidebar-title,
+body.light-mode .module-sidebar .sidebar-title {
+    color: #0f172a !important;
+}
+
+body.light-mode .sidebar-header .sidebar-subtitle,
+body.light-mode .module-sidebar .sidebar-subtitle {
+    color: var(--module-color) !important;
+}
+
+body.light-mode .sidebar-step .step-title,
+body.light-mode .module-sidebar [class*="step-title"] {
+    color: #334155 !important;
+}
+
+body.light-mode .sidebar-step .step-subtitle,
+body.light-mode .module-sidebar [class*="step-subtitle"] {
+    color: #64748b !important;
+}
+
+body.light-mode .sidebar-step.active .step-title {
+    color: #0f172a !important;
+}
+
+body.light-mode .sidebar-step .step-indicator,
+body.light-mode .module-sidebar [class*="step-indicator"] {
+    color: #64748b !important;
+    background: #f1f5f9 !important;
+}
+
+body.light-mode .sidebar-step.active .step-indicator {
+    color: var(--module-color) !important;
+    background: color-mix(in srgb, var(--module-color) 15%, white) !important;
+}
+
+body.light-mode .sidebar-step.completed .step-indicator {
+    color: #ffffff !important;
+    background: linear-gradient(135deg, var(--module-color), var(--module-color-dark)) !important;
+}
+
+body.light-mode .sidebar-toggle {
+    background: #f1f5f9 !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    color: #64748b !important;
+}
+
+body.light-mode .sidebar-toggle:hover {
+    background: #e2e8f0 !important;
+    color: #0f172a !important;
+}
+
+body.light-mode .sidebar-footer {
+    border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-mode .sidebar-footer-btn {
+    background: #f1f5f9 !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    color: #334155 !important;
+}
+
+body.light-mode .sidebar-footer-btn:hover {
+    background: #e2e8f0 !important;
+}
+
+/* ==========================================================================
+   Light Mode: Override inline-styled dark cards throughout modules
+   These use inline styles so we need [style*=""] attribute selectors
+   ========================================================================== */
+
+/* Target any element with dark rgba background inline styles */
+body.light-mode [style*="rgba(10, 15, 20"],
+body.light-mode [style*="rgba(15, 22, 30"],
+body.light-mode [style*="rgba(0, 0, 0, 0.85"],
+body.light-mode [style*="rgba(0, 0, 0, 0.7"],
+body.light-mode [style*="background: #0"],
+body.light-mode [style*="background:#0"] {
+    background: #ffffff !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Target elements with white/light border meant for dark mode */
+body.light-mode [style*="border: 1px solid rgba(255, 255, 255"],
+body.light-mode [style*="border:1px solid rgba(255, 255, 255"] {
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Remove backdrop-filter in light mode (solid cards instead) */
+body.light-mode [style*="backdrop-filter"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Code blocks in light mode */
+body.light-mode [style*="background: rgba(0,0,0,0.3)"],
+body.light-mode [style*="background: rgba(0, 0, 0, 0.3)"],
+body.light-mode [style*="background:rgba(0,0,0"] {
+    background: #f1f5f9 !important;
+}
+
+/* Ensure text in converted cards is readable */
+body.light-mode [style*="rgba(10, 15, 20"] *,
+body.light-mode [style*="rgba(15, 22, 30"] * {
+    color: inherit;
+}
+
+body.light-mode [style*="rgba(10, 15, 20"] p,
+body.light-mode [style*="rgba(15, 22, 30"] p {
+    color: #334155 !important;
+}
+
+body.light-mode [style*="rgba(10, 15, 20"] code,
+body.light-mode [style*="rgba(15, 22, 30"] code {
+    color: #64748b !important;
+}
+
+/* Headers/labels that use module color should stay colored */
+body.light-mode [style*="rgba(10, 15, 20"] [style*="color: var(--"],
+body.light-mode [style*="rgba(15, 22, 30"] [style*="color: var(--"] {
+    /* Keep module colors as-is */
+}
+
+/* Ambient/gradient backgrounds - simplify for light mode */
+body.light-mode [style*="radial-gradient"][style*="position: fixed"] {
+    opacity: 0.3 !important;
+}
+
+/* Slide ambient backgrounds */
+body.light-mode .slide-ambient {
+    opacity: 0.15 !important;
+}
+
+/* Progress bars and indicators inside cards */
+body.light-mode [style*="rgba(10, 15, 20"] [style*="background: var(--"],
+body.light-mode [style*="rgba(15, 22, 30"] [style*="background: var(--"] {
+    /* Keep colored elements as-is */
+}
+
+/* Border highlights in light mode */
+body.light-mode [style*="border-bottom: 1px solid rgba(255, 255, 255"] {
+    border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Success/completion banners */
+body.light-mode [style*="background: rgba(34, 197, 94"] {
+    background: rgba(34, 197, 94, 0.15) !important;
+}
+
+/* ==========================================================================
+   Light Mode: Specific component overrides
+   ========================================================================== */
+
+/* Sorting game cards and buckets */
+body.light-mode .sorting-task-card,
+body.light-mode .shiny-selected {
+    background: #ffffff !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+body.light-mode .sorting-bucket {
+    background: #ffffff !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-mode .sorting-bucket:hover {
+    background: #f8fafc !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+body.light-mode .sorting-bucket-desc {
+    color: #64748b !important;
+}
+
+/* Progress bars with white background meant for dark mode */
+body.light-mode [style*="background: rgba(255,255,255,0.1)"],
+body.light-mode [style*="background: rgba(255, 255, 255, 0.1)"] {
+    background: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Quiz answer options */
+body.light-mode .quiz-option,
+body.light-mode [class*="quiz-option"] {
+    background: #ffffff !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+body.light-mode .quiz-option:hover {
+    background: #f8fafc !important;
+}
+
+/* Header navigation in light mode */
+body.light-mode .nav-btn,
+body.light-mode [class*="nav-btn"] {
+    color: #334155 !important;
+}
+
+body.light-mode .nav-btn:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Sub-navigation dots background */
+body.light-mode .header-sub-nav,
+body.light-mode [class*="header-sub-nav"] {
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-mode .sub-btn {
+    color: #64748b !important;
+}
+
+/* Presentation slides - general content cards */
+body.light-mode .presentation-slide [style*="background: rgba(10"],
+body.light-mode .presentation-slide [style*="background: rgba(0, 0, 0"] {
+    background: #ffffff !important;
+}
+
+/* Mock interface components */
+body.light-mode [style*="background: #1e1f20"],
+body.light-mode [style*="background:#1e1f20"],
+body.light-mode [style*="background: #131314"],
+body.light-mode [style*="background:#131314"] {
+    background: #f1f5f9 !important;
+}
+
+/* Text that uses var(--text-primary) should work automatically,
+   but explicit white text needs to flip */
+body.light-mode [style*="color: #fff"],
+body.light-mode [style*="color:#fff"],
+body.light-mode [style*="color: white"],
+body.light-mode [style*="color:white"] {
+    color: #0f172a !important;
+}
+
+/* But keep white text on colored backgrounds (buttons, badges) */
+body.light-mode .btn-primary [style*="color"],
+body.light-mode [style*="background: linear-gradient"] [style*="color: white"],
+body.light-mode [style*="background: var(--"] [style*="color: white"] {
+    color: #ffffff !important;
+}
+
+/* ==================== MOCK GEMINI UI STYLES ==================== */
+
+/* Dark mode defaults for Mock Gemini UI */
+.mock-gemini-ui {
+    background: #131314;
+    border: 1px solid #333;
+}
+
+.mock-gemini-sidebar {
+    background: #1e1f20;
+    border-right: 1px solid #333;
+}
+
+.mock-gemini-main {
+    background: #131314;
+}
+
+.mock-gemini-header {
+    color: #e3e3e3;
+    border-bottom: 1px solid #333;
+}
+
+.mock-gemini-title {
+    color: #e3e3e3;
+}
+
+.mock-gemini-newchat-btn {
+    background: #313235;
+    color: #e3e3e3;
+    border: 1px solid #444;
+}
+
+.mock-gemini-chat-item {
+    color: #e3e3e3;
+}
+
+.mock-gemini-chat-item:hover {
+    background: #313235;
+}
+
+.mock-gemini-settings-btn {
+    color: #888;
+}
+
+.mock-gemini-settings-btn span {
+    color: #e3e3e3;
+}
+
+.mock-gemini-label {
+    color: #888;
+}
+
+.mock-gemini-prompt {
+    background: #1e1f20;
+    border: 1px solid #444;
+}
+
+.mock-gemini-input {
+    color: #e3e3e3;
+}
+
+.mock-gemini-input::placeholder {
+    color: #888;
+}
+
+.mock-gemini-icon-btn {
+    color: #888;
+    border: none !important;
+    outline: none;
+    background: transparent;
+}
+
+.mock-gemini-send-btn {
+    background: #313235;
+    color: #888;
+}
+
+.mock-gemini-chip {
+    background: #1e1f20;
+    color: #e3e3e3;
+    border: 1px solid #444;
+}
+
+.mock-gemini-chip:hover {
+    background: #313235;
+}
+
+.mock-gemini-headline {
+    color: #e3e3e3;
+}
+
+.mock-gemini-sidebar-footer {
+    border-top: 1px solid #333;
+}
+
+/* Light mode overrides for Mock Gemini UI - matches real Gemini light mode */
+/* These target both CSS classes AND inline styles with attribute selectors */
+
+body.light-mode .mock-gemini-ui {
+    background: #ffffff !important;
+    border-color: #e5e7eb !important;
+}
+
+body.light-mode .mock-gemini-sidebar {
+    background: #f8f9fa !important;
+    border-color: #e5e7eb !important;
+}
+
+body.light-mode .mock-gemini-main {
+    background: #ffffff !important;
+}
+
+body.light-mode .mock-gemini-header {
+    color: #1f1f1f !important;
+    border-color: transparent !important;
+}
+
+body.light-mode .mock-gemini-newchat-btn {
+    background: transparent !important;
+    color: #1f1f1f !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+body.light-mode .mock-gemini-newchat-btn:hover {
+    background: #f1f3f4 !important;
+}
+
+body.light-mode .mock-gemini-chat-item {
+    color: #1f1f1f !important;
+}
+
+body.light-mode .mock-gemini-chat-item:hover {
+    background: #e8eaed !important;
+}
+
+body.light-mode .mock-gemini-settings-btn {
+    color: #5f6368 !important;
+}
+
+body.light-mode .mock-gemini-settings-btn span {
+    color: #1f1f1f !important;
+}
+
+body.light-mode .mock-gemini-label {
+    color: #5f6368 !important;
+}
+
+/* Prompt box - white with subtle shadow like real Gemini */
+body.light-mode .mock-gemini-prompt {
+    background: #ffffff !important;
+    border: 1px solid #dfe1e5 !important;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.1) !important;
+}
+
+body.light-mode .mock-gemini-prompt input::placeholder {
+    color: #80868b !important;
+}
+
+body.light-mode .mock-gemini-icon-btn {
+    color: #5f6368 !important;
+    border: none !important;
+    outline: none;
+    background: transparent !important;
+}
+
+body.light-mode .mock-gemini-send-btn {
+    background: #e8eaed !important;
+    color: #5f6368 !important;
+}
+
+/* Quick action chips - cream/beige color like real Gemini */
+body.light-mode .mock-gemini-chip {
+    background: #f0ebe1 !important;
+    color: #1f1f1f !important;
+    border: none !important;
+}
+
+body.light-mode .mock-gemini-chip:hover {
+    background: #e4dfd5 !important;
+}
+
+/* Welcome text and headlines */
+body.light-mode .mock-gemini-welcome-text {
+    color: #1f1f1f !important;
+}
+
+body.light-mode .mock-gemini-headline {
+    color: #1f1f1f !important;
+}
+
+body.light-mode .mock-gemini-placeholder {
+    color: #5f6368 !important;
+}
+
+/* Section headers in sidebar */
+body.light-mode .mock-gemini-section-header {
+    color: #5f6368 !important;
+}
+
+/* Title text ("Gemini") */
+body.light-mode .mock-gemini-title {
+    color: #1f1f1f !important;
+}
+
+/* Input text */
+body.light-mode .mock-gemini-input {
+    color: #1f1f1f !important;
+}
+
+body.light-mode .mock-gemini-input::placeholder {
+    color: #80868b !important;
+}
+
+/* Sidebar footer border */
+body.light-mode .mock-gemini-sidebar-footer {
+    border-top: 1px solid #e5e7eb !important;
+}
+
+/* ==================== MOCK HUB UI STYLES ==================== */
+
+/* Dark mode defaults for Mock Hub UI */
+.mock-hub-ui {
+    background: #0a0a0f;
+}
+
+/* Ambient glow - purple/pink radial gradient */
+.mock-hub-ambient {
+    background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(168, 85, 247, 0.15), transparent 50%),
+        radial-gradient(ellipse 60% 50% at 30% 20%, rgba(236, 72, 153, 0.1), transparent 40%),
+        radial-gradient(ellipse 50% 40% at 70% 30%, rgba(59, 130, 246, 0.08), transparent 40%);
+}
+
+/* Dot pattern overlay */
+.mock-hub-dots {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.6;
+}
+
+.mock-hub-header {
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(8px);
+}
+
+.mock-hub-title {
+    color: #ffffff;
+}
+
+.mock-hub-nav-btn {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.mock-hub-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.mock-hub-main {
+    background: transparent;
+}
+
+.mock-hub-view-toggle {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mock-hub-toggle-btn {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.mock-hub-toggle-btn.mock-hub-toggle-active {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+
+/* Mock Hub category styles removed - now using real .category-card classes from components.css */
+
+/* ==================== LIGHT MODE: Mock Hub UI ==================== */
+
+body.light-mode .mock-hub-ui {
+    background: #f8fafc !important;
+}
+
+/* Light mode: Soft ambient glow - subtle purple/blue tint */
+body.light-mode .mock-hub-ambient {
+    background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(168, 85, 247, 0.06), transparent 50%),
+        radial-gradient(ellipse 60% 50% at 30% 20%, rgba(236, 72, 153, 0.04), transparent 40%),
+        radial-gradient(ellipse 50% 40% at 70% 30%, rgba(59, 130, 246, 0.04), transparent 40%) !important;
+}
+
+/* Light mode: Subtle dot pattern */
+body.light-mode .mock-hub-dots {
+    background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px) !important;
+    background-size: 24px 24px !important;
+    opacity: 0.8 !important;
+}
+
+body.light-mode .mock-hub-header {
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(8px) !important;
+}
+
+body.light-mode .mock-hub-title {
+    color: #0f172a !important;
+}
+
+body.light-mode .mock-hub-nav-btn {
+    color: #64748b !important;
+}
+
+body.light-mode .mock-hub-nav-btn:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-mode .mock-hub-main {
+    background: transparent !important;
+}
+
+body.light-mode .mock-hub-view-toggle {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-mode .mock-hub-toggle-btn {
+    background: transparent !important;
+    color: #64748b !important;
+}
+
+body.light-mode .mock-hub-toggle-btn.mock-hub-toggle-active {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Light mode: Mock category styles removed - now using real .category-card classes */
+
+/* ==================== LIGHT MODE: Featured Card ==================== */
+
+/* Light mode featured card - keeps animated border but adapts colors */
+body.light-mode .featured-card {
+    background: linear-gradient(#ffffff, #ffffff) padding-box,
+        conic-gradient(
+            from var(--featured-gradient-angle),
+            transparent 0%,
+            var(--pink-400) 5%,
+            var(--pink-300) 15%,
+            var(--purple-300) 25%,
+            var(--pink-400) 35%,
+            transparent 45%
+        ) border-box !important;
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.05),
+        0 0 20px rgba(236, 72, 153, 0.15),
+        0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-mode .featured-card::before {
+    background: radial-gradient(circle at 50% 120%, rgba(236, 72, 153, 0.08), transparent 60%) !important;
+}
+
+body.light-mode .featured-card::after {
+    background: radial-gradient(circle at 2px 2px, rgba(0, 0, 0, 0.15) 0.5px, transparent 0) padding-box !important;
+    opacity: 0.3 !important;
+}
+
+body.light-mode .featured-card:hover {
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+        0 10px 40px rgba(236, 72, 153, 0.2),
+        0 8px 30px rgba(0, 0, 0, 0.12) !important;
+}
+
+body.light-mode .featured-card-icon {
+    box-shadow: 0 4px 20px rgba(236, 72, 153, 0.25) !important;
+}
+
+body.light-mode .featured-card-label {
+    color: var(--pink-500) !important;
+}
+
+body.light-mode .featured-card-title {
+    background: linear-gradient(135deg, var(--pink-500), var(--purple-500)) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+body.light-mode .featured-card-desc {
+    color: #64748b !important;
+}
+
+body.light-mode .featured-card-arrow {
+    color: var(--pink-500) !important;
+}
+
+/* ==================== LIGHT MODE: Category Cards ==================== */
+
+/* Light mode category cards - solid background with subtle shadow */
+body.light-mode .category-card {
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-mode .category-card:hover {
+    border-color: var(--category-color) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 0 20px var(--category-glow) !important;
+}
+
+body.light-mode .category-card-icon {
+    background: color-mix(in srgb, var(--category-color) 12%, transparent) !important;
+}
+
+body.light-mode .category-card-title {
+    color: #0f172a !important;
+}
+
+body.light-mode .category-card-desc {
+    color: #64748b !important;
+}
+
+body.light-mode .category-card-label {
+    color: var(--category-color) !important;
+}
+
+body.light-mode .category-card-progress-ring span {
+    color: #334155 !important;
+}
+
+body.light-mode .category-card-arrow {
+    color: #94a3b8 !important;
+}
+
+body.light-mode .category-card:hover .category-card-arrow {
+    color: var(--category-color) !important;
+}
+
+/* ==================== LIGHT MODE: Gradient Text Cycle ==================== */
+
+/* Light mode needs darker, more saturated colors for the cycling text */
+body.light-mode .gradient-text-cycle {
+    background: linear-gradient(
+        135deg,
+        #0f172a 0%,
+        #0d9488 20%,
+        #14b8a6 40%,
+        #7c3aed 60%,
+        #a855f7 80%,
+        #0f172a 100%
+    ) !important;
+    background-size: 200% 200% !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+body.light-mode .gradient-text-cycle--teal {
+    background: linear-gradient(
+        135deg,
+        #0f766e 0%,
+        #14b8a6 20%,
+        #7c3aed 50%,
+        #a855f7 70%,
+        #14b8a6 90%,
+        #0f766e 100%
+    ) !important;
+    background-size: 200% 200% !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+body.light-mode .gradient-text-cycle--purple {
+    background: linear-gradient(
+        135deg,
+        #6b21a8 0%,
+        #7c3aed 20%,
+        #8b5cf6 40%,
+        #a855f7 60%,
+        #7c3aed 80%,
+        #6b21a8 100%
+    ) !important;
+    background-size: 200% 200% !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+body.light-mode .gradient-text-cycle--blue {
+    background: linear-gradient(
+        135deg,
+        #1d4ed8 0%,
+        #2563eb 20%,
+        #3b82f6 40%,
+        #60a5fa 60%,
+        #2563eb 80%,
+        #1d4ed8 100%
+    ) !important;
+    background-size: 200% 200% !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+body.light-mode .gradient-text-cycle--amber {
+    background: linear-gradient(
+        135deg,
+        #b45309 0%,
+        #d97706 20%,
+        #f59e0b 40%,
+        #fbbf24 60%,
+        #d97706 80%,
+        #b45309 100%
+    ) !important;
+    background-size: 200% 200% !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+body.light-mode .gradient-text-cycle--pink {
+    background: linear-gradient(
+        135deg,
+        #be185d 0%,
+        #db2777 20%,
+        #ec4899 40%,
+        #f472b6 60%,
+        #db2777 80%,
+        #be185d 100%
+    ) !important;
+    background-size: 200% 200% !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+/* ==================== LIGHT MODE: Path Cards ==================== */
+
+/* Light mode path cards - solid white background with shadows */
+body.light-mode .path-card {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-mode .path-card::before {
+    background: radial-gradient(circle at 50% 0%, rgba(0, 0, 0, 0.02) 0%, transparent 60%) !important;
+}
+
+body.light-mode .path-card:hover {
+    border-color: rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Recommended card variant - subtle purple tint */
+body.light-mode .path-card--recommended {
+    background: linear-gradient(180deg, rgba(168, 85, 247, 0.06) 0%, #ffffff 100%) !important;
+    border-color: var(--purple-300) !important;
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.1) !important;
+}
+
+body.light-mode .path-card--recommended:hover {
+    border-color: var(--purple-400) !important;
+    box-shadow: 0 12px 40px rgba(168, 85, 247, 0.15), 0 0 30px rgba(168, 85, 247, 0.1) !important;
+}
+
+/* Path card text colors for light mode */
+body.light-mode .path-card__title {
+    color: #0f172a !important;
+}
+
+body.light-mode .path-card__subtitle {
+    color: #64748b !important;
+}
+
+body.light-mode .path-card__description {
+    color: #475569 !important;
+}
+
+/* CTA buttons - keep colored but adjust for light backgrounds */
+body.light-mode .path-card__cta--blue {
+    color: var(--blue-600) !important;
+    background: rgba(59, 130, 246, 0.1) !important;
+}
+
+body.light-mode .path-card:hover .path-card__cta--blue {
+    background: rgba(59, 130, 246, 0.15) !important;
+    color: var(--blue-700) !important;
+}
+
+body.light-mode .path-card__cta--teal {
+    color: var(--teal-600) !important;
+    background: rgba(20, 184, 166, 0.1) !important;
+}
+
+body.light-mode .path-card:hover .path-card__cta--teal {
+    background: rgba(20, 184, 166, 0.15) !important;
+    color: var(--teal-700) !important;
+}
+
+/* Icon shadows - softer in light mode */
+body.light-mode .path-card__icon--blue {
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25) !important;
+}
+
+body.light-mode .path-card:hover .path-card__icon--blue {
+    box-shadow: 0 8px 28px rgba(59, 130, 246, 0.35) !important;
+}
+
+body.light-mode .path-card__icon--teal {
+    box-shadow: 0 6px 20px rgba(20, 184, 166, 0.25) !important;
+}
+
+body.light-mode .path-card:hover .path-card__icon--teal {
+    box-shadow: 0 8px 28px rgba(20, 184, 166, 0.35) !important;
+}
+

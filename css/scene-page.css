@@ -1,0 +1,370 @@
+/* =====================================================================
+   SCENE PAGE — shared layout for the five workshop scenes
+   Inherits design tokens from variables.css; relies on base.css for type.
+   --scene-color is set per-scene by inline style on <body>.
+   Dark editorial wrapper, matches the AI Task Force Visioning aesthetic.
+   ===================================================================== */
+
+body.scene-page {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    background: var(--bg-primary, #000);
+    color: var(--text-primary, #fff);
+    overflow-x: hidden;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* ── Background ── */
+.scene-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+.scene-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+[data-theme="light"] .scene-bg-grid {
+    background-image: linear-gradient(rgba(2,6,23,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(2,6,23,0.03) 1px, transparent 1px);
+}
+.scene-bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    width: 800px;
+    height: 800px;
+    top: -10%;
+    right: -15%;
+    background: radial-gradient(circle, var(--scene-color, #2dd4bf) 0%, rgba(20,184,166,0.18) 30%, transparent 60%);
+    opacity: 0.22;
+}
+.scene-bg-orb-two {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    width: 700px;
+    height: 700px;
+    bottom: -20%;
+    left: -10%;
+    background: radial-gradient(circle, var(--scene-color, #2dd4bf) 0%, rgba(20,184,166,0.13) 30%, transparent 60%);
+    opacity: 0.16;
+}
+[data-theme="light"] .scene-bg-orb,
+[data-theme="light"] .scene-bg-orb-two {
+    opacity: 0.18;
+}
+
+/* ── Top header bar ── */
+.scene-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    z-index: 1000;
+    background: rgba(0,0,0,0.78);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.06));
+}
+[data-theme="light"] .scene-header {
+    background: rgba(255,255,255,0.78);
+    border-bottom: 1px solid rgba(2,6,23,0.08);
+}
+
+.scene-header-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+}
+.scene-header-logo .logo-text {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.15rem;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+}
+.scene-header-logo .logo-divider {
+    width: 1px;
+    height: 22px;
+    background: var(--border-default, rgba(255,255,255,0.1));
+}
+.scene-header-logo .logo-subtitle {
+    font-size: 0.92rem;
+    font-weight: 300;
+    color: var(--text-muted, rgba(255,255,255,0.4));
+}
+
+/* ── Progress bar in the header ── */
+.scene-progress {
+    flex: 1;
+    max-width: 420px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.scene-progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--border-subtle, rgba(255,255,255,0.06));
+    border-radius: 9999px;
+    overflow: hidden;
+}
+.scene-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--scene-color, #2dd4bf), color-mix(in srgb, var(--scene-color, #2dd4bf) 70%, white));
+    border-radius: 9999px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.scene-progress-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-muted, rgba(255,255,255,0.4));
+    white-space: nowrap;
+}
+
+.scene-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.scene-icon-btn {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card, rgba(10,15,20,0.95));
+    border: 1px solid var(--border-default, rgba(255,255,255,0.1));
+    border-radius: 10px;
+    color: var(--text-secondary, rgba(255,255,255,0.7));
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.scene-icon-btn:hover {
+    color: var(--text-primary, #fff);
+    border-color: var(--border-accent, rgba(255,255,255,0.15));
+    transform: translateY(-1px);
+}
+
+/* ── Page wrap ── */
+.scene-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 110px 40px 120px;
+}
+
+@media (max-width: 720px) {
+    .scene-header { padding: 14px 18px; }
+    .scene-header-logo .logo-subtitle { display: none; }
+    .scene-progress { max-width: none; }
+    .scene-wrap { padding: 100px 22px 96px; }
+}
+
+/* ── Eyebrow row ── */
+.scene-eyebrow-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+.scene-eyebrow-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    color: var(--scene-color, #2dd4bf);
+    padding: 6px 12px;
+    border: 1px solid color-mix(in srgb, var(--scene-color, #2dd4bf) 35%, transparent);
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--scene-color, #2dd4bf) 8%, transparent);
+    text-transform: uppercase;
+}
+.scene-eyebrow-label {
+    font-family: var(--font-display, 'Montserrat', sans-serif);
+    font-size: 0.94rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary, rgba(255,255,255,0.7));
+}
+.scene-eyebrow-time {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-muted, rgba(255,255,255,0.4));
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+/* ── Headlines ── */
+.scene-tagline {
+    font-family: var(--font-display, 'Montserrat', sans-serif);
+    font-size: clamp(2.1rem, 4.4vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+}
+.scene-tagline-accent {
+    background: linear-gradient(135deg, var(--scene-color, #2dd4bf), color-mix(in srgb, var(--scene-color, #2dd4bf) 50%, white));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.scene-lead {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-secondary, rgba(255,255,255,0.7));
+    max-width: 720px;
+    margin-bottom: 48px;
+}
+
+/* ── Section eyebrow + title ── */
+.section-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-muted, rgba(255,255,255,0.4));
+    margin-bottom: 14px;
+}
+
+.section-title {
+    font-family: var(--font-display, 'Montserrat', sans-serif);
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+}
+
+/* ── Content panels (glass cards) ── */
+.scene-panel {
+    background: var(--bg-card, rgba(10,15,20,0.95));
+    border: 1px solid var(--border-default, rgba(255,255,255,0.1));
+    border-radius: 18px;
+    padding: 32px 36px;
+    backdrop-filter: blur(12px);
+    margin-bottom: 24px;
+}
+.scene-panel--accent {
+    background: linear-gradient(135deg,
+        color-mix(in srgb, var(--scene-color, #2dd4bf) 8%, transparent) 0%,
+        color-mix(in srgb, var(--scene-color, #2dd4bf) 2%, transparent) 100%);
+    border-color: color-mix(in srgb, var(--scene-color, #2dd4bf) 25%, transparent);
+    position: relative;
+    overflow: hidden;
+}
+.scene-panel--accent::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--scene-color, #2dd4bf), transparent);
+}
+
+@media (max-width: 720px) {
+    .scene-panel { padding: 24px 22px; }
+}
+
+.panel-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--scene-color, #2dd4bf);
+    margin-bottom: 10px;
+}
+.panel-title {
+    font-family: var(--font-display, 'Montserrat', sans-serif);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-primary, #fff);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+}
+.panel-lead {
+    font-size: 0.98rem;
+    color: var(--text-secondary, rgba(255,255,255,0.7));
+    line-height: 1.6;
+    margin-bottom: 0;
+    max-width: 680px;
+}
+
+/* ── Bottom navigation ── */
+.scene-footer-nav {
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border-subtle, rgba(255,255,255,0.06));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.btn-scene {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-family: var(--font-display, 'Montserrat', sans-serif);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+.btn-scene--primary {
+    background: var(--scene-color, #2dd4bf);
+    color: #000;
+}
+.btn-scene--primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px color-mix(in srgb, var(--scene-color, #2dd4bf) 40%, transparent);
+}
+.btn-scene--primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.btn-scene--ghost {
+    background: var(--bg-card, rgba(10,15,20,0.95));
+    color: var(--text-primary, #fff);
+    border: 1px solid var(--border-default, rgba(255,255,255,0.1));
+}
+.btn-scene--ghost:hover {
+    border-color: var(--border-accent, rgba(255,255,255,0.15));
+}
+
+.scene-footer-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-muted, rgba(255,255,255,0.4));
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+}
+
+/* ── Theme persistence helper ── */
+@keyframes spin { to { transform: rotate(360deg); } }
